@@ -1,0 +1,117 @@
+* {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #ffffff;
+}
+
+body {
+    background-color: #2568f9;
+    max-width: 1024px;
+    margin: 0 auto;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    margin-top: 16px;
+}
+
+    header nav ul{
+        display: flex;
+        gap: 16px;
+        list-style: none;
+        padding: 0;
+        margin: 8px 0;
+    }
+
+        header nav ul li a {
+            text-decoration: none;
+        }
+
+        header nav ul li select {
+            background-color: transparent;
+            font-size: 16px;
+            padding: 0;
+            margin: 0;
+            border: none;
+            color: #fff;
+            cursor: pointer;
+            outline: none;
+        }
+
+            header nav ul li select option {
+                background-color: #2568f9;
+                color: #fff;
+            }
+
+    header h1 a {
+        text-decoration: none;
+    }
+
+.search_bar {
+    display: flex;
+    height: 40px;
+}
+
+    .search_bar h1 {
+        margin: 0 8px 0 0;
+        font-size: 40px;
+        line-height: 1em;
+    }
+
+    .search_bar input[type="search"] {
+        flex-grow: 1;
+        padding: 20px;
+        font-size: 18px;
+        border: none;
+        color: #000;
+        border-end-start-radius: 20px;
+        border-start-start-radius: 20px;
+    }
+
+    .search_bar button {
+        background-color: transparent;
+        border: 1px solid #fff;
+        padding: 0;
+        width: 60px;
+        cursor: pointer;
+        border-left: none;
+        border-end-end-radius: 20px;
+        border-start-end-radius: 20px;
+    }
+
+        .search_bar button img {
+            width: 30px;
+            height: 30px;
+        }
+
+    .search_bar ul a {
+        padding: 5px 0 0 8px;
+    }
+
+        .search_bar ul a img {
+            width: 30px;
+            height: 30px;
+        }
+
+hr {
+    margin: 0;
+}
+
+main {
+    min-height: 100vh;
+    margin: 0;
+    padding: 0;
+}
+
+footer p {
+    margin: 8px 0;
+}
+
+footer nav ul {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    list-style: none;
+    padding: 0;
+    margin: 8px 0;
+}

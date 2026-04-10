@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - ComputerService</title>
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Noto+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="search_bar">
+            <h1><a asp-action="Index" asp-controller="Home">BSOD</a></h1>
+            <input type="search" placeholder="Найти товар" name="search" autocomplete="off" />
+            <button id="submit_search">
+				<img src="~/assets/imgs/search-icon.svg" alt="Search" />
+            </button>
+            <a href="">
+				<img src="~/assets/imgs/cart-icon.svg" alt="Cart" />
+            </a>
+        </div>
+        <nav>
+            <ul>
+                <li><a asp-action="About" asp-controller="Home">О нас</a></li>
+                <li><a asp-action="News" asp-controller="Home">Новости</a></li>
+                <li><a asp-action="Feedback" asp-controller="Home">Обратная связь</a></li>
+                <li><a asp-action="Sitemap" asp-controller="Home">Карта сайта</a></li>
+                <li>
+                    <select id="language_select">
+						<option value="ru">Русский</option>
+						<option value="en">English</option>
+                    </select>
+                </li>
+			</ul>
+		</nav>
+    </header>
+    <hr />
+    <main>
+        @RenderBody()
+    </main>
+    <hr />
+    <footer>
+        <p>
+			&copy; 2026 BSOD Computer Service. Все права защищены.
+        </p>
+        <nav>
+            <ul>
+                <li><a asp-action="Index" asp-controller="Support">Тех. поддержка</a></li>
+                <li><a asp-action="Contacts" asp-controller="Home">Контакты</a></li>
+                <li><a asp-action="Map" asp-controller="Home">Схема проезда</a></li>
+                <li><a asp-action="History" asp-controller="Home">История компании</a></li>
+                <li><a asp-action="Login" asp-controller="Admin">Я админ</a></li>
+            </ul>
+        </nav>
+    </footer>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+</body>
+</html>
