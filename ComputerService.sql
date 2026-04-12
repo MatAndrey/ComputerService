@@ -16,11 +16,6 @@ CREATE DATABASE "ComputerService"
 
 
 
-CREATE TABLE languages (
-    id SERIAL PRIMARY KEY,
-    code VARCHAR(10) NOT NULL UNIQUE,
-    name VARCHAR(50) NOT NULL
-);
 
 CREATE TABLE users (
     login VARCHAR(50) PRIMARY KEY,
@@ -36,39 +31,59 @@ CREATE TABLE user_privileges (
 );
 
 CREATE TABLE pages (
-    id SERIAL PRIMARY KEY,
-    title VARCHAR(200) NOT NULL,
-    content TEXT,
-    language_id INTEGER NOT NULL,
-    FOREIGN KEY (language_id) REFERENCES languages(id)
+    id SERIAL PRIMARY KEY
+);
+
+CREATE TABLE page_translations (
+	title VARCHAR(200) NOT NULL,
+    content TEXT NOT NULL,
+    lang_code VARCHAR(10) NOT NULL,
+	page_id INTEGER NOT NULL,
+	PRIMARY KEY (page_id, lang_code),
+	FOREIGN KEY (page_id) REFERENCES pages(id) ON DELETE CASCADE
 );
 
 CREATE TABLE news (
     id SERIAL PRIMARY KEY,
-    title VARCHAR(200) NOT NULL,
-    content TEXT,
     date DATE NOT NULL,
-    image VARCHAR(255),
-    language_id INTEGER NOT NULL,
-    FOREIGN KEY (language_id) REFERENCES languages(id)
+    image VARCHAR(255)
+);
+
+CREATE TABLE news_translations (
+	title VARCHAR(200) NOT NULL,
+    content TEXT,
+	lang_code VARCHAR(10) NOT NULL,
+	news_id INTEGER NOT NULL,
+	PRIMARY KEY (news_id, lang_code),
+	FOREIGN KEY (news_id) REFERENCES news(id) ON DELETE CASCADE
 );
 
 CREATE TABLE categories (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(150) NOT NULL,
-    language_id INTEGER NOT NULL,
-    FOREIGN KEY (language_id) REFERENCES languages(id)
+    id SERIAL PRIMARY KEY
+);
+
+CREATE TABLE category_translations (
+	name VARCHAR(150) NOT NULL,
+	lang_code VARCHAR(10) NOT NULL,
+	category_id INTEGER NOT NULL,
+	PRIMARY KEY (category_id, lang_code),
+	FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE
 );
 
 CREATE TABLE products (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(200) NOT NULL,
-    description TEXT,
     price DECIMAL(10,2) NOT NULL,
     category_id INTEGER NOT NULL,
-    language_id INTEGER NOT NULL,
-    FOREIGN KEY (category_id) REFERENCES categories(id),
-    FOREIGN KEY (language_id) REFERENCES languages(id)
+    FOREIGN KEY (category_id) REFERENCES categories(id)
+);
+
+CREATE TABLE product_translations (
+	name VARCHAR(200) NOT NULL,
+    description TEXT,
+	lang_code VARCHAR(10) NOT NULL,
+	product_id INTEGER NOT NULL,
+	PRIMARY KEY (product_id, lang_code),
+	FOREIGN KEY (product_id) REFERENCES products(id) ON DELETE CASCADE
 );
 
 CREATE TABLE product_images (
