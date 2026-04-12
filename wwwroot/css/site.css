@@ -64,8 +64,8 @@ header {
         font-size: 18px;
         border: none;
         color: #000;
-        border-end-start-radius: 20px;
-        border-start-start-radius: 20px;
+        border-bottom-left-radius: 20px;
+        border-top-left-radius: 20px;
     }
 
     .search_bar button {
@@ -75,20 +75,20 @@ header {
         width: 60px;
         cursor: pointer;
         border-left: none;
-        border-end-end-radius: 20px;
-        border-start-end-radius: 20px;
+        border-bottom-right-radius: 20px;
+        border-top-right-radius: 20px;
     }
 
-        .search_bar button img {
+        .search_bar button svg {
             width: 30px;
             height: 30px;
         }
 
-    .search_bar .shopping_cart {
+    .search_bar .search_bar_btn {
         padding: 5px 0 0 8px;
     }
 
-        .search_bar .shopping_cart img {
+        .search_bar .search_bar_btn svg {
             width: 30px;
             height: 30px;
         }
@@ -103,18 +103,23 @@ main {
     padding: 0;
 }
 
-footer p {
-    margin: 8px 0;
+footer {
+    display: flex;
+    justify-content: space-between
 }
 
-footer nav ul {
-    display: flex;
-    justify-content: space-between;
-    gap: 16px;
-    list-style: none;
-    padding: 0;
-    margin: 8px 0;
-}
+    footer p {
+        margin: 8px 0;
+    }
+
+    footer nav ul {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        list-style: none;
+        padding: 0;
+        margin: 8px 0;
+    }
 
 .login_form {
     display: flex;
@@ -152,5 +157,61 @@ form input {
 
 h2 {
     font-size: 28px;
-    margin: 0;
+    margin: 12px 0;
 }
+
+.categories_list {
+    width: 400px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.category_item {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid rgba(255,255,255,0.3);
+    align-items: center;
+    padding: 6px 0;
+}
+
+    .category_item input {
+        background-color: transparent;
+        border: none;
+        width: 200px;
+        height: 32px;
+    }
+
+        .category_item input::placeholder {
+            color: rgba(255,255,255,0.6);
+        }
+
+.category_action_btn {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px 0;
+    margin: 0 8px;
+    height: 32px;
+}
+
+    .category_action_btn:disabled {
+        cursor: auto;
+    }
+
+    .category_action_btn:hover:not(:disabled) {
+        transform: scale(1.1);
+    }
+
+    .category_action_btn:active:not(:disabled) {
+        transform: scale(0.95);
+    }
+
+    .category_action_btn svg {
+        width: 24px;
+        height: 24px;
+        fill: #fff;
+    }
+
+    .category_action_btn:disabled svg {
+        fill: #ccc;
+    }

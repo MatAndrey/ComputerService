@@ -19,6 +19,10 @@ namespace ComputerService.Controllers
         [HttpGet("/login")]
         public IActionResult Login(string returnUrl = "/")
         {
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index");
+            }
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }

@@ -147,4 +147,19 @@
   <data name="About" xml:space="preserve">
     <value>О нас</value>
   </data>
+  <data name="Categories" xml:space="preserve">
+    <value>Категории</value>
+  </data>
+  <data name="Pages" xml:space="preserve">
+    <value>Страницы</value>
+  </data>
+  <data name="Support" xml:space="preserve">
+    <value>Тех. поддержка</value>
+  </data>
+  <data name="Moderators" xml:space="preserve">
+    <value>Модераторы</value>
+  </data>
+  <data name="Orders" xml:space="preserve">
+    <value>Заказы</value>
+  </data>
 </root>

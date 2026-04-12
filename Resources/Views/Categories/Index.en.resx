@@ -117,49 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Contacts" xml:space="preserve">
-    <value>Contacts</value>
-  </data>
-  <data name="Copyright" xml:space="preserve">
-    <value>&amp;copy; 2026 BSOD Computer Service. All rights reserved.</value>
-  </data>
-  <data name="Directions" xml:space="preserve">
-    <value>Directions</value>
-  </data>
-  <data name="Feedback" xml:space="preserve">
-    <value>Feedback</value>
-  </data>
-  <data name="Find product" xml:space="preserve">
-    <value>Find product</value>
-  </data>
-  <data name="History" xml:space="preserve">
-    <value>Our history</value>
-  </data>
-  <data name="I'm admin" xml:space="preserve">
-    <value>I'm admin</value>
-  </data>
-  <data name="News" xml:space="preserve">
-    <value>News</value>
-  </data>
-  <data name="Sitemap" xml:space="preserve">
-    <value>Sitemap</value>
-  </data>
-  <data name="About" xml:space="preserve">
-    <value>About</value>
-  </data>
   <data name="Categories" xml:space="preserve">
     <value>Categories</value>
   </data>
-  <data name="Pages" xml:space="preserve">
-    <value>Pages</value>
+  <data name="Category name" xml:space="preserve">
+    <value>Category name</value>
   </data>
-  <data name="Support" xml:space="preserve">
-    <value>Support</value>
+  <data name="Create" xml:space="preserve">
+    <value>Create</value>
   </data>
-  <data name="Moderators" xml:space="preserve">
-    <value>Moderators</value>
+  <data name="Delete" xml:space="preserve">
+    <value>Delete</value>
   </data>
-  <data name="Orders" xml:space="preserve">
-    <value>Orders</value>
+  <data name="No categories" xml:space="preserve">
+    <value>No categories</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="There is no translation on current language" xml:space="preserve">
+    <value>There is no translation on current language</value>
+  </data>
+  <data name="View Products" xml:space="preserve">
+    <value>View Products</value>
   </data>
 </root>
