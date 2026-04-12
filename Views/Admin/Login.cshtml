@@ -1,17 +1,21 @@
 ﻿@model LoginViewModel
+@inject IViewLocalizer Localizer
 @{
-    ViewData["Title"] = "Вход";
+    ViewData["Title"] = Localizer["Sign in"];
 }
 
-<form class="login_form" asp-action="Login" method="post" enctype="multipart/form-data">
-    <h2>Вход</h2>
+<form class="login_form" asp-action="Login" method="post" enctype="multipart/form-data" asp-route-returnUrl="@ViewBag.ReturnUrl">
+    <h2>@Localizer["Sign in"]</h2>
     <div class="form_group">
-        <label for="login">Логин</label>
-        <input type="text" class="form-control" id="login" placeholder="Введите логин" autocomplete="off">
+        <label for="login">@Localizer["Login"]</label>
+        <input type="text" asp-for="Login" placeholder="@Localizer["Enter login"]" autocomplete="off">
+        <span asp-validation-for="Login" class="text_danger"></span>
     </div>
     <div class="form_group">
-		<label for="password">Пароль</label>
-        <input type="password" class="form-control" id="password" placeholder="Введите пароль" autocomplete="off">
+        <label for="password">@Localizer["Password"]</label>
+        <input type="password" asp-for="Password" placeholder="@Localizer["Enter password"]" autocomplete="off">
+        <span asp-validation-for="Password" class="text_danger"></span>
     </div>
-	<button type="submit" class="btn">Войти</button>
+    <button type="submit" class="btn">@Localizer["Sign in"]</button>
+    <div asp-validation-summary="ModelOnly" class="text-text_danger"></div>
 </form>
