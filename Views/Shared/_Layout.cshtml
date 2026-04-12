@@ -1,4 +1,19 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Builder
+@using Microsoft.AspNetCore.Localization
+@using Microsoft.AspNetCore.Mvc.Localization
+@using Microsoft.Extensions.Options
+
+@inject IViewLocalizer Localizer
+@inject IOptions<RequestLocalizationOptions> LocOptions
+
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+    var cultureItems = LocOptions.Value.SupportedUICultures
+        .Select(c => new SelectListItem { Value = c.Name, Text = c.NativeName })
+        .ToList();
+}
+
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="utf-8" />
@@ -13,25 +28,28 @@
     <header>
         <div class="search_bar">
             <h1><a asp-action="Index" asp-controller="Home">BSOD</a></h1>
-            <input type="search" placeholder="Найти товар" name="search" autocomplete="off" />
+            <input type="search" placeholder="@Localizer["Find product"]" name="search" autocomplete="off" />
             <button id="submit_search">
 				<img src="~/assets/imgs/search-icon.svg" alt="Search" />
             </button>
-            <a href="">
+            <a asp-action="ShoppingCart" asp-controller="Home" class="shopping_cart">
 				<img src="~/assets/imgs/cart-icon.svg" alt="Cart" />
             </a>
         </div>
         <nav>
             <ul>
-                <li><a asp-action="About" asp-controller="Home">О нас</a></li>
-                <li><a asp-action="News" asp-controller="Home">Новости</a></li>
-                <li><a asp-action="Feedback" asp-controller="Home">Обратная связь</a></li>
-                <li><a asp-action="Sitemap" asp-controller="Home">Карта сайта</a></li>
+                <li><a asp-action="About" asp-controller="Home">@Localizer["About"]</a></li>
+                <li><a asp-action="News" asp-controller="Home">@Localizer["News"]</a></li>
+                <li><a asp-action="Feedback" asp-controller="Home">@Localizer["Feedback"]</a></li>
+                <li><a asp-action="Sitemap" asp-controller="Home">@Localizer["Sitemap"]</a></li>
                 <li>
-                    <select id="language_select">
-						<option value="ru">Русский</option>
-						<option value="en">English</option>
-                    </select>
+                    <form method="post" asp-action="SetLanguage" asp-controller="Home" asp-route-returnUrl="@Context.Request.Path">
+                        <select 
+                            name="culture" onchange="this.form.submit();" 
+                            asp-for="@requestCulture.RequestCulture.UICulture.Name"
+                            asp-items="cultureItems">
+                        </select>
+                    </form>
                 </li>
 			</ul>
 		</nav>
@@ -43,15 +61,15 @@
     <hr />
     <footer>
         <p>
-			&copy; 2026 BSOD Computer Service. Все права защищены.
+            @Localizer["Copyright"]
         </p>
         <nav>
             <ul>
-                <li><a asp-action="Index" asp-controller="Support">Тех. поддержка</a></li>
-                <li><a asp-action="Contacts" asp-controller="Home">Контакты</a></li>
-                <li><a asp-action="Map" asp-controller="Home">Схема проезда</a></li>
-                <li><a asp-action="History" asp-controller="Home">История компании</a></li>
-                <li><a asp-action="Login" asp-controller="Admin">Я админ</a></li>
+                <li><a asp-action="Index" asp-controller="Support">@Localizer["Support"]</a></li>
+                <li><a asp-action="Contacts" asp-controller="Home">@Localizer["Contacts"]</a></li>
+                <li><a asp-action="Map" asp-controller="Home">@Localizer["Directions"]</a></li>
+                <li><a asp-action="History" asp-controller="Home">@Localizer["History"]</a></li>
+                <li><a asp-action="Login" asp-controller="Admin">@Localizer["I'm admin"]</a></li>
             </ul>
         </nav>
     </footer>

@@ -84,11 +84,11 @@ header {
             height: 30px;
         }
 
-    .search_bar ul a {
+    .search_bar .shopping_cart {
         padding: 5px 0 0 8px;
     }
 
-        .search_bar ul a img {
+        .search_bar .shopping_cart img {
             width: 30px;
             height: 30px;
         }
@@ -114,4 +114,43 @@ footer nav ul {
     list-style: none;
     padding: 0;
     margin: 8px 0;
+}
+
+.login_form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 400px;
+    margin: 16px auto;
+}
+
+form label {
+    font-size: 18px;
+}
+
+form input {
+    width: 100%;
+    font-size: 18px;
+    border: none;
+    color: #000;
+    margin: 0;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.btn {
+    width: 100%;
+    margin: 0;
+    padding: 8px;
+    border: none;
+    background-color: #fff;
+    color: #000;
+    font-size: 18px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+h2 {
+    font-size: 28px;
+    margin: 0;
 }
