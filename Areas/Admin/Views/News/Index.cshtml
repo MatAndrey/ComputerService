@@ -1,0 +1,21 @@
+﻿@using System.Globalization
+@model IEnumerable<NewsViewModel>
+@inject IViewLocalizer Localizer
+@{
+	ViewData["Title"] = @Localizer["News"];
+	var culture = CultureInfo.CurrentUICulture.Name;
+}
+
+<h2>@Localizer["News"]</h2>
+
+<div class="news_list">
+	<a asp-action="Create" asp-asp-controller="News" asp-asp-area="Admin" class="btn">@Localizer["Add news"]</a>
+	@foreach(var news in Model)
+	{
+		<div class="news_item">
+			<span>@news.Date.ToString("dd MMM")</span>
+			<a asp-action="Edit" asp-controller="News" asp-area="Admin" asp-route-id="@news.Id"><h3>@news.Title</h3></a>
+			<div class="news_body">@Html.Raw(news.Content)</div>
+		</div>
+	}
+</div>

@@ -1,0 +1,74 @@
+﻿@using System.Globalization
+@model NewsViewModel
+@inject IViewLocalizer Localizer
+@{
+	ViewData["Title"] = @Localizer["Edit news"];
+	var culture = CultureInfo.CurrentUICulture.Name;
+}
+
+<script src="https://cdn.tiny.cloud/1/fqc3g2h2eq4l6d0wwjnlo2eq55s74f3asiq5pvsewt8wr1uv/tinymce/8/tinymce.min.js" referrerpolicy="origin" crossorigin="anonymous"></script>
+
+<h2>@Localizer["Edit news"]</h2>
+
+<form class="news_form" id="news_form">
+	<div class="form_group">
+		<label asp-for="Title">@Localizer["News title"]</label>
+		<input type="text" id="news_title" name="Name" required asp-for="Title" autocomplete="off"/>
+	</div>
+	<div class="form_group">
+        <label for="editablediv">@Localizer["News text"]</label>
+		<div id="editablediv">@Html.Raw(Model.Content)</div>
+	</div>
+    <div class="btn_group">
+		<button class="btn" id="cancelBtn" type="button">@Localizer["Cancel"]</button>
+        <button class="btn" id="deleteBtn" type="button">@Localizer["Delete"]</button>
+        <button class="btn" id="saveBtn" type="button">@Localizer["Save"]</button>
+	</div>
+</form>
+
+<script>
+    tinymce.init({
+      selector: '#editablediv',
+      inline: true,
+      menubar: false
+    });
+
+    $("#saveBtn").click((e) => {
+        const editor = tinymce.activeEditor;
+        const content = editor.getContent();
+        const title = $("#news_title").val()
+        $.ajax({
+            url: '/admin/news/@Model.Id',
+            method: 'POST',
+            data: {
+                content,
+                title
+            },
+            success: function() {
+                window.location = "/admin/news"
+            },
+            error: function() {
+                alert('@Localizer["An error occurred while updating."]');
+            }
+        });
+    });
+
+    $("#cancelBtn").click(() => {
+        window.history.back();
+    });
+
+    $("#deleteBtn").click(() => {
+        if(confirm("@Localizer["Delete news?"]")) {
+            $.ajax({
+                url: '/admin/news/@Model.Id',
+                method: 'DELETE',
+                success: function() {
+                    window.location = "/admin/news"
+                },
+                error: function() {
+                    alert('@Localizer["An error occurred while deleting."]');
+                }
+            });
+        }
+    });
+</script>

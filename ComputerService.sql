@@ -44,8 +44,7 @@ CREATE TABLE page_translations (
 
 CREATE TABLE news (
     id SERIAL PRIMARY KEY,
-    date DATE NOT NULL,
-    image VARCHAR(255)
+    date DATE NOT NULL
 );
 
 CREATE TABLE news_translations (

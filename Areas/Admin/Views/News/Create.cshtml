@@ -1,0 +1,59 @@
+﻿@using System.Globalization
+@model NewsViewModel
+@inject IViewLocalizer Localizer
+@{
+	ViewData["Title"] = @Localizer["Add news"];
+	var culture = CultureInfo.CurrentUICulture.Name;
+}
+
+<script src="https://cdn.tiny.cloud/1/fqc3g2h2eq4l6d0wwjnlo2eq55s74f3asiq5pvsewt8wr1uv/tinymce/8/tinymce.min.js" referrerpolicy="origin" crossorigin="anonymous"></script>
+
+<h2>@Localizer["Add news"]</h2>
+
+<form class="news_form" id="news_form">
+	<div class="form_group">
+		<label asp-for="Title">@Localizer["News title"]</label>
+        <input type="text" id="news_title" name="Name" required asp-for="Title" autocomplete="off" />
+	</div>
+	<div class="form_group">
+        <label for="textarea">@Localizer["News text"]</label>
+        <div id="editablediv"></div>
+	</div>
+    <div class="btn_group">
+		<button class="btn" id="cancelBtn" type="button">@Localizer["Cancel"]</button>
+        <button class="btn" id="saveBtn" type="button">@Localizer["Save"]</button>
+	</div>
+</form>
+
+<script>
+    tinymce.init({
+      selector: '#editablediv',
+      inline: true,
+      menubar: false
+    });
+
+    $("#saveBtn").click((e) => {
+        const editor = tinymce.activeEditor;
+        const content = editor.getContent();
+        const title = $("#news_title").val()
+        $.ajax({
+            url: '/admin/news/create',
+            method: 'POST',
+            data: {
+                content,
+                title
+            },
+            success: function() {
+                alert('@Localizer["News created successfully!"]');
+                window.location = "/admin/news"
+            },
+            error: function() {
+                alert('@Localizer["An error occurred while creating."]');
+            }
+        });
+    });
+
+    $("#cancelBtn").click(() => {
+        window.history.back();
+    })
+</script>

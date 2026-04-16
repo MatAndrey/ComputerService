@@ -72,7 +72,6 @@ namespace ComputerService.Data
                 entity.HasKey(e => e.Id);
                 entity.Property(e => e.Id).HasColumnName("id");
                 entity.Property(e => e.Date).HasColumnName("date").HasColumnType("date");
-                entity.Property(e => e.Image).HasColumnName("image");
             });
 
             modelBuilder.Entity<NewsTranslation>(entity =>

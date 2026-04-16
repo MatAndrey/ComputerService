@@ -9,9 +9,6 @@ namespace ComputerService.Models
 
         public DateTime Date { get; set; }
 
-        [MaxLength(255)]
-        public string Image { get; set; }
-
         public ICollection<NewsTranslation> Translations { get; set; }
     }
 }

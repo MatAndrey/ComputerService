@@ -17,11 +17,12 @@
         </span>
     }
 </h2>
-<textarea id="mytextarea">@Html.Raw(Model.Content)</textarea>
-<button class="btn btn-primary" id="saveBtn">@Localizer["Save"]</button>
+<textarea id="textarea">@Html.Raw(Model.Content)</textarea>
+<button class="btn" id="saveBtn">@Localizer["Save"]</button>
 <script>
     tinymce.init({
-      selector: '#mytextarea'
+      selector: '#textarea',
+      menubar: false
     });
 
     $("#saveBtn").click(() => {
