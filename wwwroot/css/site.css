@@ -374,3 +374,7 @@ h3.add_product {
     height: 28px;
     vertical-align: -4px;
 }
+
+.tox-tinymce {
+    margin-bottom: 16px;
+}

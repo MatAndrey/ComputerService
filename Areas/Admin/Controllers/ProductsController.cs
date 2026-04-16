@@ -1,4 +1,5 @@
 ﻿using ComputerService.Areas.Admin.ViewModels;
+using ComputerService.Models;
 using ComputerService.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,9 +11,13 @@ namespace ComputerService.Areas.Admin.Controllers
     [Area("Admin")]
     public class ProductsController(ICategoryService categoryService, IProductService productService) : Controller
     {
-        public ActionResult Index()
+        [HttpGet("admin")]
+        [Authorize(Roles = "admin,product.view")]
+        public async Task<ActionResult> Index()
         {
-            return View();
+            var culture = CultureInfo.CurrentUICulture.Name;
+            var products = await productService.GetAllProductsAsync(culture, true);
+            return View(products);
         }
 
         [HttpGet("admin/categories/{categoryId:int}")]
@@ -20,7 +25,7 @@ namespace ComputerService.Areas.Admin.Controllers
         public async Task<IActionResult> CategoryProducts(int categoryId)
         {
             var culture = CultureInfo.CurrentUICulture.Name;
-            var products = await productService.GetProductsByCategoryAsync(categoryId, culture);
+            var products = await productService.GetProductsByCategoryAsync(categoryId, culture, true);
             var category = await categoryService.GetCategoryByIdAsync(categoryId, culture);
             ViewData["categoryName"] = category != null ? category.Name : "N/A";
             return View(products);
@@ -28,12 +33,12 @@ namespace ComputerService.Areas.Admin.Controllers
 
         [HttpGet("admin/products/new")]
         [Authorize(Roles = "admin,product.create")]
-        public async Task<IActionResult> CreateProduct(string category)
+        public async Task<IActionResult> CreateProduct([FromQuery] int? categoryId)
         {
             var culture = CultureInfo.CurrentUICulture.Name;
             var categories = await categoryService.GetAllCategoriesAsync(culture);
             ViewData["categories"] = categories;
-            ViewData["selectedCategory"] = category;
+            ViewData["selectedCategory"] = categoryId;
             return View();
         }
 

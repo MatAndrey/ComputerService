@@ -56,7 +56,6 @@ namespace ComputerService.Data
             {
                 entity.ToTable("page_translations");
                 entity.HasKey(e => new { e.PageId, e.LangCode });
-                entity.Property(e => e.Title).HasColumnName("title");
                 entity.Property(e => e.Content).HasColumnName("content");
                 entity.Property(e => e.LangCode).HasColumnName("lang_code");
                 entity.Property(e => e.PageId).HasColumnName("page_id");

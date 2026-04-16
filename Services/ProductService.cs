@@ -42,6 +42,38 @@ namespace ComputerService.Services
             return id;
         }
 
+        public async Task<IEnumerable<ProductViewModel>> GetAllProductsAsync(string langCode, bool showInvisible)
+        {
+            var query = productRepository.GetAllProducts();
+
+            var products = await query
+                .Where(p => showInvisible || p.Visible)
+                .Include(p => p.Translations)
+                .Include(p => p.Images)
+                .Include(p => p.Category)
+                    .ThenInclude(c => c.Translations)
+                .Select(p => new {
+                    Translation = p.Translations.FirstOrDefault(t => t.LangCode == langCode) ?? p.Translations.FirstOrDefault(),
+                    Product = p,
+                    CategoryTranslation = p.Category.Translations.FirstOrDefault(t => t.LangCode == langCode) ?? p.Category.Translations.FirstOrDefault()
+                })
+                .Select(x => new ProductViewModel
+                {
+                    Id = x.Product.Id,
+                    Name = x.Translation != null ? x.Translation.Name : "N/A",
+                    Description = x.Translation != null ? x.Translation.Description : "N/A",
+                    Price = x.Product.Price,
+                    CategoryId = x.Product.CategoryId,
+                    CategoryName = x.CategoryTranslation != null ? x.CategoryTranslation.Name : "N/A",
+                    LangCode = x.Translation != null ? x.Translation.LangCode : "N/A",
+                    ImageUrls = x.Product.Images.Select(i => i.ImageUrl),
+                    Visible = x.Product.Visible
+                })
+                .ToListAsync();
+
+            return products;
+        }
+
         public async Task<ProductViewModel?> GetProductByIdAsync(int id, string langCode)
         {
             var product = await productRepository.GetProductByIdAsync(id);
@@ -63,12 +95,13 @@ namespace ComputerService.Services
             };
         }
 
-        public async Task<IEnumerable<ProductViewModel>> GetProductsByCategoryAsync(int categoryId, string langCode)
+        public async Task<IEnumerable<ProductViewModel>> GetProductsByCategoryAsync(int categoryId, string langCode, bool showInvisible)
         {
             var query = productRepository.GetAllProducts();
 
             var products = await query
                 .Where(p => p.CategoryId == categoryId)
+                .Where(p => showInvisible || p.Visible)
                 .Include(p => p.Translations)
                 .Include(p => p.Images)
                 .Include(p => p.Category)

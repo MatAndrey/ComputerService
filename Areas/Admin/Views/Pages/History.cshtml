@@ -1,0 +1,44 @@
+﻿@using System.Globalization
+@model PageViewModel
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = @Localizer["History"];
+    var culture = CultureInfo.CurrentUICulture.Name;
+}
+
+<script src="https://cdn.tiny.cloud/1/fqc3g2h2eq4l6d0wwjnlo2eq55s74f3asiq5pvsewt8wr1uv/tinymce/8/tinymce.min.js" referrerpolicy="origin" crossorigin="anonymous"></script>
+
+<h2>
+    @Localizer["History"]
+    @if (culture != Model.LangCode)
+    {
+        <span title="@Localizer["There is no translation on current language"]" class="no_translation">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M480-120q-33 0-56.5-23.5T400-200q0-33 23.5-56.5T480-280q33 0 56.5 23.5T560-200q0 33-23.5 56.5T480-120Zm-80-240v-480h160v480H400Z" /></svg>
+        </span>
+    }
+</h2>
+<textarea id="mytextarea">@Html.Raw(Model.Content)</textarea>
+<button class="btn btn-primary" id="saveBtn">@Localizer["Save"]</button>
+<script>
+    tinymce.init({
+      selector: '#mytextarea'
+    });
+
+    $("#saveBtn").click(() => {
+        const editor = tinymce.activeEditor;
+        const content = editor.getContent();
+        $.ajax({
+            url: '/admin/history',
+            method: 'POST',
+            data: {
+                content
+            },
+            success: function() {
+                alert('@Localizer["Content saved successfully!"]');
+            },
+            error: function() {
+                alert('@Localizer["An error occurred while saving."]');
+            }
+        });
+	});
+</script>

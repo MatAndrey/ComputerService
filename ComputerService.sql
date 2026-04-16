@@ -35,7 +35,6 @@ CREATE TABLE pages (
 );
 
 CREATE TABLE page_translations (
-	title VARCHAR(200) NOT NULL,
     content TEXT NOT NULL,
     lang_code VARCHAR(10) NOT NULL,
 	page_id INTEGER NOT NULL,
