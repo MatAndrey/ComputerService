@@ -1,0 +1,153 @@
+﻿@using System.Globalization
+@model ProductViewModel
+@inject IViewLocalizer Localizer
+@{
+	ViewData["Title"] = Localizer["Add product"];
+	var culture = CultureInfo.CurrentUICulture.Name;
+}
+
+
+<h2>@Localizer["Add product"]</h2>
+<form class="product_edit" method="post" id="product_form">
+	<div class="form_column">
+		<div class="form_group">
+			<label for="product_name">@Localizer["Product name"]</label>
+			<input type="text" id="product_name" name="Name" required asp-for="Name"/>
+		</div>
+		<div class="form_group">
+			<label for="product_category">@Localizer["Product category"]</label>
+			<select id="product_category" name="CategoryId" required asp-for="CategoryId">
+				@foreach (var category in ViewData["categories"] as IEnumerable<CategoryViewModel>)
+				{
+					<option value="@category.Id" selected="@(category.Name == ViewData["selectedCategory"])">@category.Name</option>
+				}
+			</select>
+		</div>
+		<div class="form_group">
+			<label for="product_description">@Localizer["Product description"]</label>
+			<textarea id="product_description" name="Description" asp-for="Description"></textarea>
+		</div>
+		<div class="form_group">
+			<label for="product_price">@Localizer["Product price"]</label>
+			<input type="number" id="product_price" name="Price" step="1" required asp-for="Price"/>
+		</div>
+        <div class="images_upload_list" id="imagesUploadList">
+            <div class="drop_zone preview_item" id="dropZone">
+                <input type="file" id="imageInput" multiple accept="image/jpeg,image/png,image/webp" style="display:none"/>
+                <p>@Localizer["Select images"]</p>
+            </div>
+        </div>
+		<div class="btn_group">
+			<button class="btn" type="button" id="returnBtn">@Localizer["Return"]</button>
+			<button class="btn">@Localizer["Add"]</button>
+		</div>
+	</div>
+    <div class="form_column">
+        
+    </div>
+</form>
+
+<script>
+
+    let selectedFiles = [];
+
+    const $dropZone = $('#dropZone');
+    const $fileInput = $('#imageInput');
+    const $imagesUploadList = $('#imagesUploadList');
+
+    function openFileDialog() {
+        $fileInput.trigger('click');
+    }
+
+    function addFiles(files) {
+        const newFiles = Array.from(files).filter(file => {
+            if (!file.type.startsWith('image/')) return false;
+            return !selectedFiles.some(f => f.name === file.name && f.size === file.size);
+        });
+
+        if (newFiles.length === 0) return;
+
+        selectedFiles = selectedFiles.concat(newFiles);
+
+        newFiles.forEach(file => {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const $item = $(`
+                    <div class="preview_item" data-filename="${file.name}" data-filesize="${file.size}">
+                        <img src="${e.target.result}" alt="preview">
+                        <button type="button" class="remove_btn" data-filename="${file.name}" data-filesize="${file.size}">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+                        </button>
+                    </div>
+                `);
+                $imagesUploadList.append($item);
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+
+    function removeFile(name, size) {
+        selectedFiles = selectedFiles.filter(f => !(f.name === name && f.size === size));
+        $(`.preview_item[data-filename="${name}"][data-filesize="${size}"]`).remove();
+    }
+
+    $fileInput.on('change', function(e) {
+        if (e.target.files && e.target.files.length) {
+            addFiles(e.target.files);
+        }
+    });
+
+    $dropZone.on('dragover', function(e) {
+        e.preventDefault();
+        $(this).addClass('drag_over');
+    });
+
+    $dropZone.on('dragleave', function(e) {
+        $(this).removeClass('drag_over');
+    });
+
+    $dropZone.on('drop', function(e) {
+        e.preventDefault();
+        $(this).removeClass('drag_over');
+        const files = e.originalEvent.dataTransfer.files;
+        if (files.length) addFiles(files);
+    });
+
+    $dropZone.on('click', function(e) {
+        e.stopPropagation();
+        if ($(e.target).is("#imageInput")) return;
+        openFileDialog();
+    });
+
+    $imagesUploadList.on('click', '.remove_btn', function() {
+        const name = $(this).data('filename');
+        const size = $(this).data('filesize');
+        removeFile(name, size);
+    });
+
+    $("#returnBtn").on('click', function() {
+        window.history.back();
+	});
+
+    $('#product_form').on('submit', function(e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+        for (let i = 0; i < selectedFiles.length; i++) {
+            formData.append('images', selectedFiles[i]);
+        }
+
+        $.ajax({
+            url: '/admin/products',
+            method: 'POST',
+            data: formData,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+				window.location.href = `/admin/products/${response}`;
+            },
+            error: function(xhr) {
+                alert('Ошибка: ' + xhr.responseText);
+            }
+        });
+    });
+</script>

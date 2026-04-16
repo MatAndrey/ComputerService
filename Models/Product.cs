@@ -15,6 +15,7 @@ namespace ComputerService.Models
 
         [ForeignKey(nameof(CategoryId))]
         public Category Category { get; set; }
+        public bool Visible { get; set; }
 
         public ICollection<ProductTranslation> Translations { get; set; }
         public ICollection<ProductImage> Images { get; set; }

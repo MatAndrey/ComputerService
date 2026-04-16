@@ -1,4 +1,4 @@
-﻿namespace ComputerService.ViewModels
+﻿namespace ComputerService.Areas.Admin.ViewModels
 {
     public class CategoryViewModel
     {

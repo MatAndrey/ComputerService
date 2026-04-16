@@ -1,4 +1,4 @@
-﻿using ComputerService.ViewModels;
+﻿using ComputerService.Areas.Admin.ViewModels;
 
 namespace ComputerService.Services
 {
@@ -8,5 +8,6 @@ namespace ComputerService.Services
         Task AddCategoryAsync(string name, string langCode);
         Task UpdateCategoryAsync(int id, string name, string langCode);
         Task DeleteCategoryAsync(int id);
+        Task<CategoryViewModel?> GetCategoryByIdAsync(int categoryId, string culture);
     }
 }

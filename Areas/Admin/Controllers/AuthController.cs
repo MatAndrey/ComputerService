@@ -1,33 +1,27 @@
-﻿using ComputerService.Services;
-using ComputerService.ViewModels;
+﻿using ComputerService.Areas.Admin.ViewModels;
+using ComputerService.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
-namespace ComputerService.Controllers
+namespace ComputerService.Areas.Admin.Controllers
 {
-    public class AdminController(IUserService userService) : Controller
+    [Area("Admin")]
+    public class AuthController(IUserService userService) : Controller
     {
-        [Authorize]
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        [HttpGet("/login")]
-        public IActionResult Login(string returnUrl = "/")
+        [HttpGet("admin/login")]
+        public IActionResult Login(string returnUrl = "/admin/products")
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("Index", "Products");
             }
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
 
-        [HttpPost("/login")]
+        [HttpPost("admin/login")]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = "/")
         {
             if (ModelState.IsValid)
@@ -56,11 +50,11 @@ namespace ComputerService.Controllers
             return View(model);
         }
 
-        [HttpGet("/logout")]
+        [HttpGet("admin/logout")]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Index", "Home");
+            return LocalRedirect("/");
         }
     }
 }

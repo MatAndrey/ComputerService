@@ -119,6 +119,7 @@ namespace ComputerService.Data
                 entity.Property(e => e.Id).HasColumnName("id");
                 entity.Property(e => e.Price).HasColumnName("price").HasColumnType("decimal(10,2)");
                 entity.Property(e => e.CategoryId).HasColumnName("category_id");
+                entity.Property(e => e.Visible).HasColumnName("visible");
 
                 entity.HasOne(e => e.Category)
                       .WithMany(c => c.Products)

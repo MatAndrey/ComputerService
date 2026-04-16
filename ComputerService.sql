@@ -74,7 +74,8 @@ CREATE TABLE products (
     id SERIAL PRIMARY KEY,
     price DECIMAL(10,2) NOT NULL,
     category_id INTEGER NOT NULL,
-    FOREIGN KEY (category_id) REFERENCES categories(id)
+    FOREIGN KEY (category_id) REFERENCES categories(id),
+	visible BOOLEAN DEFAULT true
 );
 
 CREATE TABLE product_translations (

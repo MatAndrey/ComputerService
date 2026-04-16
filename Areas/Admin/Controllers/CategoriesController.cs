@@ -1,13 +1,16 @@
-﻿using ComputerService.Services;
-using ComputerService.ViewModels;
+﻿using ComputerService.Areas.Admin.ViewModels;
+using ComputerService.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
 
-namespace ComputerService.Controllers
+namespace ComputerService.Areas.Admin.Controllers
 {
-    [Route("/categories")]
+    [Area("Admin")]
     public class CategoriesController(ICategoryService categoryService) : Controller
     {
+        [HttpGet("admin/categories")]
+        [Authorize(Roles = "admin,category.view")]
         public async Task<IActionResult> Index()
         {
             var culture = CultureInfo.CurrentUICulture.Name;
@@ -15,7 +18,8 @@ namespace ComputerService.Controllers
             return View(categories);
         }
 
-        [HttpPost]
+        [HttpPost("admin/categories")]
+        [Authorize(Roles = "admin,category.create")]
         public async Task<IActionResult> Create(string name)
         {
             var culture = CultureInfo.CurrentUICulture.Name;
@@ -31,14 +35,16 @@ namespace ComputerService.Controllers
             }
         }
 
-        [HttpDelete("{id}")]
+        [HttpDelete("admin/categories/{id:int}")]
+        [Authorize(Roles = "admin,category.delete")]
         public async Task<IActionResult> Delete(int id)
         {
             await categoryService.DeleteCategoryAsync(id);
             return NoContent();
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("admin/categories/{id:int}")]
+        [Authorize(Roles = "admin,category.update")]
         public async Task<IActionResult> Update(int id, string name)
         {
             var culture = CultureInfo.CurrentUICulture.Name;

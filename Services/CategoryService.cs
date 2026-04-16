@@ -1,6 +1,6 @@
-﻿using ComputerService.Data.Repositories;
+﻿using ComputerService.Areas.Admin.ViewModels;
+using ComputerService.Data.Repositories;
 using ComputerService.Models;
-using ComputerService.ViewModels;
 using Microsoft.EntityFrameworkCore;
 
 namespace ComputerService.Services
@@ -59,6 +59,21 @@ namespace ComputerService.Services
                 .ToListAsync();
 
             return categories;
+        }
+
+        public async Task<CategoryViewModel?> GetCategoryByIdAsync(int categoryId, string culture)
+        {
+            var category = await categoryRepository.GetCategoryByIdAsync(categoryId);
+            if (category == null)
+                return null;
+            CategoryViewModel viewModel = new()
+            {
+                Id = category.Id,
+                Name = category.Translations.FirstOrDefault(t => t.LangCode == culture)?.Name
+                    ?? category.Translations.FirstOrDefault()?.Name
+                    ?? "N/A",
+            };
+            return viewModel;
         }
 
         public async Task UpdateCategoryAsync(int id, string name, string langCode)
