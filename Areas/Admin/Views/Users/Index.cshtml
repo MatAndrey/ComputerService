@@ -1,0 +1,127 @@
+﻿@using System.Globalization
+@model IEnumerable<UserViewModel>
+@inject IViewLocalizer Localizer
+@{
+	ViewData["Title"] = Localizer["Users"];
+}
+
+<h2>@Localizer["Users"]</h2>
+
+<div class="users_list">
+	<div class="user_item">
+		<div class="user_inputs">
+			<input type="text" id="newUserLogin" autocomplete="off" placeholder="@Localizer["Login"]" />
+			<input type="email" id="newUserEmail" autocomplete="off" placeholder="@Localizer["Email"]" />
+			<input type="text" id="newUserPassword" autocomplete="off" placeholder="@Localizer["Password"]" />
+		</div>		
+		<div class="user_actions">
+			<button id="createUserBtn"
+					class="user_action_btn"
+					title="@Localizer["Create"]">
+				<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M440-280h80v-160h160v-80H520v-160h-80v160H280v80h160v160Zm40 200q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Zm0-80q134 0 227-93t93-227q0-134-93-227t-227-93q-134 0-227 93t-93 227q0 134 93 227t227 93Zm0-320Z" /></svg>
+			</button>
+		</div>
+	</div>
+	@if(Model.Any())
+	{
+		@foreach(var user in Model)
+		{
+			<div class="user_item">
+				<div class="user_inputs">
+					<a asp-action="Edit" asp-controller="Users" asp-area="Admin" asp-route-login="@user.Login">@user.Login</a>
+					<input type="email" data-login="@user.Login" autocomplete="off" value="@user.Email" class="user_email" placeholder="@Localizer["Email"]" />
+					<input type="text" data-login="@user.Login" autocomplete="off" class="user_password" placeholder="@Localizer["New password"]" />
+				</div>				
+				<div class="user_actions">
+					<button data-login="@user.Login"
+							class="user_action_btn delete_btn"
+							title="@Localizer["Delete"]">
+						<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="m376-300 104-104 104 104 56-56-104-104 104-104-56-56-104 104-104-104-56 56 104 104-104 104 56 56Zm-96 180q-33 0-56.5-23.5T200-200v-520h-40v-80h200v-40h240v40h200v80h-40v520q0 33-23.5 56.5T680-120H280Zm400-600H280v520h400v-520Zm-400 0v520-520Z" /></svg>
+					</button>
+					<button data-login="@user.Login"
+							class="user_action_btn save_btn"
+							title="@Localizer["Save"]">
+						<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M382-240 154-468l57-57 171 171 367-367 57 57-424 424Z" /></svg>
+					</button>
+				</div>
+			</div>
+		}
+	}
+</div>
+
+<script>
+	$('#createUserBtn').on('click', function () {
+		const login = $('#newUserLogin').val().trim();
+		const email = $('#newUserEmail').val().trim();
+		const password = $('#newUserPassword').val(). trim();
+
+		if (!login || !email || !password) {
+			alert('@Localizer["Fill login, email and password"]');
+			return;
+		}
+
+		$.ajax({
+			url: '/admin/users',
+			method: 'POST',
+			contentType: 'application/json',
+			data: JSON.stringify({
+				login: login,
+				email: email,
+				password: password
+			}),
+			success: function () {
+				location.reload();
+			},
+			error: function (xhr) {
+				alert('Ошибка: ' + (xhr.responseText || 'Не удалось создать пользователя'));
+			}
+		});
+	});
+
+	$('.save_btn').on('click', function () {
+		const login = $(this).data('login');
+		const $row = $(this).closest('.user_item');
+		const email = $row.find('.user_email').val().trim();
+		const password = $row.find('.user_password').val().trim();
+
+		if (!email) {
+			alert('@Localizer["Email could not be empty"]');
+			return;
+		}
+
+		const data = { email: email };
+		if (password) {
+			data.password = password;
+		}
+
+		$.ajax({
+			url: `/admin/users/${encodeURIComponent(login)}`,
+			method: 'POST',
+			contentType: 'application/json',
+			data: JSON.stringify(data),
+			success: function () {
+				$row.find('.user_password').val('');
+				alert('@Localizer["Saved"]');
+			},
+			error: function (xhr) {
+				alert('Ошибка: ' + (xhr.responseText || 'Не удалось обновить пользователя'));
+			}
+		});
+	});
+
+	$('.delete_btn').on('click', function () {
+		const login = $(this).data('login');
+		if (!confirm(`@Localizer["Delete user"] ${login}?`)) return;
+
+		$.ajax({
+			url: `/admin/users/${encodeURIComponent(login)}`,
+			method: 'DELETE',
+			success: function () {
+				$(`.delete_btn[data-login="${login}"]`).closest('.user_item').remove();
+			},
+			error: function (xhr) {
+				alert('Ошибка: ' + (xhr.responseText || 'Не удалось удалить пользователя'));
+			}
+		});
+	});
+</script>

@@ -11,11 +11,11 @@ namespace ComputerService.Areas.Admin.Controllers
     public class AuthController(IUserService userService) : Controller
     {
         [HttpGet("admin/login")]
-        public IActionResult Login(string returnUrl = "/admin/products")
+        public IActionResult Login(string returnUrl = "/admin")
         {
             if (User.Identity.IsAuthenticated)
             {
-                return RedirectToAction("Index", "Products");
+                return LocalRedirect(returnUrl);
             }
             ViewBag.ReturnUrl = returnUrl;
             return View();

@@ -11,7 +11,7 @@ namespace ComputerService.Areas.Admin.Controllers
     public class ProductsController(ICategoryService categoryService, IProductService productService) : Controller
     {
         [HttpGet("admin")]
-        [Authorize(Roles = "admin,product.view")]
+        [Authorize]
         public async Task<ActionResult> Index()
         {
             var culture = CultureInfo.CurrentUICulture.Name;
