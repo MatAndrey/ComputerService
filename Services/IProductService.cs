@@ -8,6 +8,5 @@ namespace ComputerService.Services
         Task<ProductViewModel?> GetProductByIdAsync(int id, string langCode);
         Task<int> AddProductAsync(ProductViewModel product, List<IFormFile> images);
         Task UpdateProductAsync(int id, ProductViewModel product, List<IFormFile> images);
-        Task ChangeVisibilityAsync(int id, bool visible);
     }
 }

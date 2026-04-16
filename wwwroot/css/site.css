@@ -151,6 +151,10 @@ form textarea {
         min-height: 20px;
     }
 
+    form input[type=checkbox] {
+        width: auto;
+    }
+
 form select option {
     background-color: #fff;
     color: #000;
@@ -363,13 +367,10 @@ h3.add_product {
         margin: 4px 0;
     }
 
-.no_translation {
-/*    display: inline-block;*/
-}
 
-    .no_translation svg {
-        fill: #fff;
-        width: 28px;
-        height: 28px;
-        vertical-align: -4px;
-    }
+.no_translation svg {
+    fill: #fff;
+    width: 28px;
+    height: 28px;
+    vertical-align: -4px;
+}

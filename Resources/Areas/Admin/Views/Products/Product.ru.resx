@@ -144,4 +144,7 @@
   <data name="There is no translation on current language" xml:space="preserve">
     <value>Нет перевода на текущий язык</value>
   </data>
+  <data name="Visibility" xml:space="preserve">
+    <value>Видимость</value>
+  </data>
 </root>

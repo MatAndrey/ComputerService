@@ -23,7 +23,7 @@ namespace ComputerService.Services
                     }
                 ],
                 Images = [],
-                Visible = true
+                Visible = viewModel.Visible
             };
 
             if(images != null)
@@ -42,15 +42,6 @@ namespace ComputerService.Services
             return id;
         }
 
-        public async Task ChangeVisibilityAsync(int id, bool visible)
-        {
-            var product = await productRepository.GetProductByIdAsync(id);
-            if(product == null)
-                throw new Exception("Product not found");
-            product.Visible = visible;
-            await productRepository.UpdateProductAsync(product);
-        }
-
         public async Task<ProductViewModel?> GetProductByIdAsync(int id, string langCode)
         {
             var product = await productRepository.GetProductByIdAsync(id);
@@ -67,7 +58,8 @@ namespace ComputerService.Services
                 CategoryName = product.Category?.Translations?.FirstOrDefault(t => t.LangCode == langCode)?.Name ?? "N/A",
                 Id = product.Id,
                 LangCode = translation?.LangCode ?? "N/A",
-                ImageUrls = product.Images.Select(i => i.ImageUrl)
+                ImageUrls = product.Images.Select(i => i.ImageUrl),
+                Visible = product.Visible
             };
         }
 
@@ -95,7 +87,8 @@ namespace ComputerService.Services
                     CategoryId = x.Product.CategoryId,
                     CategoryName = x.CategoryTranslation != null ? x.CategoryTranslation.Name : "N/A",
                     LangCode = x.Translation != null ? x.Translation.LangCode : "N/A",
-                    ImageUrls = x.Product.Images.Select(i => i.ImageUrl)
+                    ImageUrls = x.Product.Images.Select(i => i.ImageUrl),
+                    Visible = x.Product.Visible
                 })
                 .ToListAsync();
 
@@ -109,6 +102,7 @@ namespace ComputerService.Services
                 throw new Exception("Product not found");
             existingProduct.Price = product.Price;
             existingProduct.CategoryId = product.CategoryId;
+            existingProduct.Visible = product.Visible;
             var translation = existingProduct.Translations.FirstOrDefault(t => t.LangCode == product.LangCode);
             if (translation != null)
             {

@@ -19,12 +19,12 @@
 <form class="product_edit" method="post" id="product_form">
 	<div class="form_column">
 		<div class="form_group">
-			<label for="product_name">@Localizer["Product name"]</label>
-			<input type="text" id="product_name" name="Name" required asp-for="Name"/>
+            <label asp-for="Name">@Localizer["Product name"]</label>
+			<input type="text" name="Name" required asp-for="Name"/>
 		</div>
 		<div class="form_group">
-			<label for="product_category">@Localizer["Product category"]</label>
-			<select id="product_category" name="CategoryId" required asp-for="CategoryId">
+            <label asp-for="CategoryId">@Localizer["Product category"]</label>
+			<select name="CategoryId" required asp-for="CategoryId">
 				@foreach (var category in ViewData["categories"] as IEnumerable<CategoryViewModel>)
 				{
 					<option value="@category.Id" selected="@(category.Name == ViewData["selectedCategory"])">@category.Name</option>
@@ -36,9 +36,13 @@
 			<textarea id="product_description" name="Description" asp-for="Description"></textarea>
 		</div>
 		<div class="form_group">
-			<label for="product_price">@Localizer["Product price"]</label>
-			<input type="number" id="product_price" name="Price" step="1" required asp-for="Price"/>
+            <label asp-for="Price">@Localizer["Product price"]</label>
+			<input type="number" name="Price" step="1" required asp-for="Price"/>
 		</div>
+        <div class="form_group">
+            <label asp-for="Visible">@Localizer["Visibility"]</label>
+            <input type="checkbox" asp-for="Visible"/>
+        </div>
         <div class="images_upload_list" id="imagesUploadList">
             <div class="drop_zone preview_item" id="dropZone">
                 <input type="file" id="imageInput" multiple accept="image/jpeg,image/png,image/webp" style="display:none"/>
@@ -50,9 +54,6 @@
 			<button class="btn">@Localizer["Save"]</button>
 		</div>
 	</div>
-    <div class="form_column">
-        
-    </div>
 </form>
 
 <script>
