@@ -1,0 +1,33 @@
+﻿@using System.Globalization
+@model UserViewModel
+@inject IViewLocalizer Localizer
+@{
+	ViewData["Title"] = Model.Login;
+}
+
+<h2>@Model.Login - @Localizer["Privileges"]</h2>
+
+<form class="privilege_list" asp-action="UpdatePrivileges" asp-controller="Users" asp-area="Admin" asp-route-login="@Model.Login">
+	<partial name="_PrivilegeCheckboxList" model=@(("category", new List<string> {"view", "create", "edit", "delete"}, Model.Privileges.ToList())) />
+	<partial name="_PrivilegeCheckboxList" model=@(("news", new List<string> { "view", "create", "edit", "delete" }, Model.Privileges.ToList())) />
+	<partial name="_PrivilegeCheckboxList" model=@(("product", new List<string> { "view", "create", "edit" }, Model.Privileges.ToList())) />
+	<partial name="_PrivilegeCheckboxList" model=@(("user", new List<string> { "view", "create", "edit", "delete" }, Model.Privileges.ToList())) />
+	<partial name="_PrivilegeCheckboxList" model=@(("about", new List<string> { "edit" }, Model.Privileges.ToList())) />
+	<partial name="_PrivilegeCheckboxList" model=@(("history", new List<string> { "edit" }, Model.Privileges.ToList())) />
+	<partial name="_PrivilegeCheckboxList" model=@(("contacts", new List<string> { "edit" }, Model.Privileges.ToList())) />
+	<fieldset>
+		<legend>@Localizer["admin"]</legend>
+		<input type="checkbox" name="privileges" value="admin" id="admin" @(Model.Privileges.Contains("admin") ? "checked" : "") />
+		<label for="admin">@Localizer["admin"]</label>
+	</fieldset>
+	<div class="btn_group">
+		<button class="btn" type="button" id="returnBtn">@Localizer["Return"]</button>
+		<button class="btn">@Localizer["Save"]</button>
+	</div>	
+</form>
+
+<script>
+	$("#returnBtn").on('click', function() {
+		window.history.back();
+	});
+</script>

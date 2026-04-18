@@ -1,0 +1,13 @@
+﻿@inject IViewLocalizer Localizer
+@model (string EntityName, List<string> Actions, List<string> SelectedPrivileges)
+
+<fieldset>
+    <legend>@Localizer[Model.EntityName]</legend>
+    @foreach (var action in Model.Actions)
+    {
+        var privilege = $"{Model.EntityName}.{action}";
+        var isChecked = Model.SelectedPrivileges.Contains(privilege);
+        <input type="checkbox" name="privileges" value="@privilege" id="@privilege" @(isChecked ? "checked" : "") />
+        <label for="@privilege">@Localizer[action]</label>
+    }
+</fieldset>

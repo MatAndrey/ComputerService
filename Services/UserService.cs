@@ -72,29 +72,32 @@ namespace ComputerService.Services
             return viewModel;
         }
 
-        public async Task<UserViewModel> UpdateUserPrivileges(UserViewModel viewModel)
+        public async Task<UserViewModel> UpdateUserPrivileges(string login, List<string> privileges)
         {
-            var user = await repository.GetByLoginAsync(viewModel.Login);
+            var user = await repository.GetByLoginAsync(login);
             if (user == null)
                 throw new ArgumentException("User is not exists");
 
-            var newPrivilegeNames = viewModel.Privileges?.ToList() ?? new List<string>();
             var existingPrivileges = user.UserPrivileges.ToList();
 
             foreach (var priv in existingPrivileges)
             {
-                if (!newPrivilegeNames.Contains(priv.PrivilegeName))
+                if (!privileges.Contains(priv.PrivilegeName))
                     user.UserPrivileges.Remove(priv);
             }
 
-            foreach (var name in newPrivilegeNames)
+            foreach (var name in privileges)
             {
                 if (!existingPrivileges.Any(p => p.PrivilegeName == name))
                     user.UserPrivileges.Add(new UserPrivilege { PrivilegeName = name });
             }
 
             await repository.UpdateUserAsync(user);
-            return viewModel;
+            return new UserViewModel {
+                Email = user.Email,
+                Login = user.Login,
+                Privileges = user.UserPrivileges.Select(p => p.PrivilegeName).ToList()
+            };
         }
     }
 }

@@ -480,3 +480,7 @@ h3.add_product {
     .user_action_btn:disabled svg {
         fill: #ccc;
     }
+
+form.privilege_list {
+    max-width: 500px;
+}

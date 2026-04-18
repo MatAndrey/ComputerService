@@ -10,7 +10,7 @@ namespace ComputerService.Services
         Task<UserViewModel> CreateUserAsync(UserViewModel viewModel);
         Task<UserViewModel?> GetUserByLoginAsync(string login);
         Task<UserViewModel> UpdateUserInfoAsync(UserViewModel viewModel);
-        Task<UserViewModel> UpdateUserPrivileges(UserViewModel viewModel);
+        Task<UserViewModel> UpdateUserPrivileges(string login, List<string> privileges);
         Task DeleteUserAsync(string id);
     }
 }

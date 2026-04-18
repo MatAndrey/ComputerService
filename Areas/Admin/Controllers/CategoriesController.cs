@@ -44,7 +44,7 @@ namespace ComputerService.Areas.Admin.Controllers
         }
 
         [HttpPut("admin/categories/{id:int}")]
-        [Authorize(Roles = "admin,category.update")]
+        [Authorize(Roles = "admin,category.edit")]
         public async Task<IActionResult> Update(int id, string name)
         {
             var culture = CultureInfo.CurrentUICulture.Name;

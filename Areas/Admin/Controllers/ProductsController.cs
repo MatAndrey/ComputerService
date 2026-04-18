@@ -59,7 +59,7 @@ namespace ComputerService.Areas.Admin.Controllers
         }
 
         [HttpGet("admin/products/{id:int}")]
-        [Authorize(Roles = "admin,product.view")]
+        [Authorize(Roles = "admin,product.edit")]
         public async Task<IActionResult> Product(int id)
         {
             var culture = CultureInfo.CurrentUICulture.Name;
@@ -72,7 +72,7 @@ namespace ComputerService.Areas.Admin.Controllers
         }
 
         [HttpPut("admin/products/{id:int}")]
-        [Authorize(Roles = "admin,product.update")]
+        [Authorize(Roles = "admin,product.edit")]
         public async Task<IActionResult> UpdateProduct(int id, [FromForm] ProductViewModel product, [FromForm] string imageUrlsJson, List<IFormFile> images)
         {
             try

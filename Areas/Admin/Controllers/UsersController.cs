@@ -9,7 +9,7 @@ namespace ComputerService.Areas.Admin.Controllers
     public class UsersController(IUserService userService) : Controller
     {
         [HttpGet("/admin/users")]
-        [Authorize(Roles = "admin,users.view")]
+        [Authorize(Roles = "admin,user.view")]
         public async Task<IActionResult> Index()
         {
             var users = await userService.GetUsersAsync();
@@ -17,7 +17,7 @@ namespace ComputerService.Areas.Admin.Controllers
         }
 
         [HttpPost("/admin/users")]
-        [Authorize(Roles = "admin,users.create")]
+        [Authorize(Roles = "admin,user.create")]
         public async Task<IActionResult> Create([FromBody] UserViewModel viewModel)
         {
             try
@@ -32,7 +32,7 @@ namespace ComputerService.Areas.Admin.Controllers
         }
 
         [HttpGet("/admin/users/{login}")]
-        [Authorize(Roles = "admin,users.view")]
+        [Authorize(Roles = "admin,user.edit")]
         public async Task<IActionResult> Edit(string login)
         {
             try
@@ -47,7 +47,7 @@ namespace ComputerService.Areas.Admin.Controllers
         }
 
         [HttpPost("/admin/users/{login}")]
-        [Authorize(Roles = "admin,users.edit")]
+        [Authorize(Roles = "admin,user.edit")]
         public async Task<IActionResult> Edit(string login, [FromBody] UserViewModel viewModel)
         {
             try
@@ -63,13 +63,28 @@ namespace ComputerService.Areas.Admin.Controllers
         }
 
         [HttpDelete("/admin/users/{login}")]
-        [Authorize(Roles = "admin,users.delete")]
+        [Authorize(Roles = "admin,user.delete")]
         public async Task<IActionResult> Delete(string login)
         {
             try
             {
                 await userService.DeleteUserAsync(login);
                 return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("/admin/users/{login}/privileges")]
+        [Authorize(Roles = "admin,user.edit")]
+        public async Task<IActionResult> UpdatePrivileges(string login, List<string> privileges)
+        {
+            try
+            {
+                await userService.UpdateUserPrivileges(login, privileges);
+                return RedirectToAction("Edit", new { login });
             }
             catch (Exception ex)
             {

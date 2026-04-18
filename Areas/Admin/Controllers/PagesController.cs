@@ -10,7 +10,7 @@ namespace ComputerService.Areas.Admin.Controllers
     public class PagesController(IPageService pageService) : Controller
     {
         [HttpGet("admin/about")]
-        [Authorize(Roles = "admin,about.view")]
+        [Authorize(Roles = "admin,about.edit")]
         public async Task<IActionResult> About()
         {
             try
@@ -47,7 +47,7 @@ namespace ComputerService.Areas.Admin.Controllers
         }
 
         [HttpGet("admin/contacts")]
-        [Authorize(Roles = "admin,contacts.view")]
+        [Authorize(Roles = "admin,contacts.edit")]
         public async Task<IActionResult> Contacts()
         {
             try
@@ -84,7 +84,7 @@ namespace ComputerService.Areas.Admin.Controllers
         }
 
         [HttpGet("admin/history")]
-        [Authorize(Roles = "admin,about.history")]
+        [Authorize(Roles = "admin,history.edit")]
         public async Task<IActionResult> History()
         {
             try
@@ -100,7 +100,7 @@ namespace ComputerService.Areas.Admin.Controllers
         }
 
         [HttpPost("admin/history")]
-        [Authorize(Roles = "admin,history.edit")]
+        [Authorize(Roles = "admin,history.edity")]
         public async Task<IActionResult> History(string content)
         {
             try
