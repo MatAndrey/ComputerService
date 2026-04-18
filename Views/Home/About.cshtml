@@ -1,0 +1,13 @@
+﻿@using System.Globalization
+@using ComputerService.ViewModels
+@model PageViewModel
+@inject IViewLocalizer Localizer
+@{
+	ViewData["Title"] = @Localizer["About"];
+}
+
+<h2>@Localizer["About"]</h2>
+
+<div class="page_content">
+	@Html.Raw(Model.Content)
+</div>

@@ -117,40 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="about" xml:space="preserve">
-    <value>about</value>
-  </data>
-  <data name="category" xml:space="preserve">
-    <value>category</value>
-  </data>
-  <data name="contacts" xml:space="preserve">
-    <value>contacts</value>
-  </data>
-  <data name="create" xml:space="preserve">
-    <value>create</value>
-  </data>
-  <data name="delete" xml:space="preserve">
-    <value>delete</value>
-  </data>
-  <data name="edit" xml:space="preserve">
-    <value>edit</value>
-  </data>
-  <data name="history" xml:space="preserve">
-    <value>history</value>
-  </data>
-  <data name="news" xml:space="preserve">
-    <value>news</value>
-  </data>
-  <data name="product" xml:space="preserve">
-    <value>product</value>
-  </data>
-  <data name="support" xml:space="preserve">
-    <value>support</value>
-  </data>
-  <data name="user" xml:space="preserve">
-    <value>user</value>
-  </data>
-  <data name="view" xml:space="preserve">
-    <value>view</value>
+  <data name="Message sent successfully" xml:space="preserve">
+    <value>Сообщение успешно отправлено</value>
   </data>
 </root>

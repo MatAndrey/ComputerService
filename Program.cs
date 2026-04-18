@@ -45,12 +45,14 @@ builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IFileRepository, FileRepository>();
 builder.Services.AddScoped<IPageRepository, PageRepository>();
 builder.Services.AddScoped<INewsRepository, NewsRepository>();
+builder.Services.AddScoped<ISupportRepository, SupportRepository>();
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 builder.Services.AddScoped<IProductService, ProductService>();
 builder.Services.AddScoped<IPageService, PageService>();
 builder.Services.AddScoped<INewsService, NewsService>();
+builder.Services.AddScoped<ISupportService, SupportService>();
 
 
 builder.Services.AddDbContext<AppDbContext>(options =>

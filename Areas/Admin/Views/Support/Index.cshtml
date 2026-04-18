@@ -1,0 +1,20 @@
+﻿@using System.Globalization
+@using ComputerService.ViewModels
+@model IEnumerable<SupportMessageViewModel>
+@inject IViewLocalizer Localizer
+@{
+	ViewData["Title"] = @Localizer["Support messages"];
+}
+
+<h2>@Localizer["Support messages"]</h2>
+
+<div class="support_messages_list">
+	@foreach (var message in Model)
+	{
+		<div class="support_message">
+			<span class="date">@message.Date.ToString("dd MMM hh:mm")</span>
+			<span class="name">@message.Name (@message.Email):</span>
+			<p>@message.Message</p>
+		</div>
+	}
+</div>

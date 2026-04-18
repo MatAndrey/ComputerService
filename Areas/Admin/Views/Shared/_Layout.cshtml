@@ -39,7 +39,7 @@
         <nav>
             <ul>
                 <li><a asp-action="Index" asp-controller="Categories" asp-area="Admin">@Localizer["Categories"]</a></li>
-                <li><a>@Localizer["Support"]</a></li>
+                <li><a asp-action="Index" asp-controller="Support" asp-area="Admin">@Localizer["Support"]</a></li>
                 <li><a asp-action="Index" asp-controller="Users" asp-area="Admin">@Localizer["Moderators"]</a></li>
                 <li><a>@Localizer["Orders"]</a></li>
                 <li><a asp-action="Index" asp-controller="News" asp-area="Admin">@Localizer["News"]</a></li>

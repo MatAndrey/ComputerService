@@ -144,6 +144,9 @@
   <data name="product" xml:space="preserve">
     <value>товар</value>
   </data>
+  <data name="support" xml:space="preserve">
+    <value>тех. поддержка</value>
+  </data>
   <data name="user" xml:space="preserve">
     <value>пользователь</value>
   </data>

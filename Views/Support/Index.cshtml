@@ -1,0 +1,39 @@
+﻿@using System.Globalization
+@using ComputerService.ViewModels
+@model SupportMessageViewModel
+@inject IViewLocalizer Localizer
+@{
+	ViewData["Title"] = @Localizer["Support"];
+}
+
+<h2>@Localizer["Support"]</h2>
+
+<form asp-action="Index" asp-controller="Support">
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert_success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+    <div class="form_group">
+        <label asp-for="Name">@Localizer["Name"]</label>
+        <input type="text" asp-for="Name" autocomplete="off">
+        <span asp-validation-for="Name" class="text_danger"></span>
+    </div>
+    <div class="form_group">
+        <label asp-for="Email">@Localizer["Email"]</label>
+        <input type="text" asp-for="Email" autocomplete="off">
+        <span asp-validation-for="Email" class="text_danger"></span>
+    </div>
+    <div class="form_group">
+        <label asp-for="Message">@Localizer["Message"]</label>
+        <textarea asp-for="Message"></textarea>
+        <span asp-validation-for="Message" class="text_danger"></span>
+    </div>
+    <button type="submit" class="btn">@Localizer["Send"]</button>
+    <div asp-validation-summary="ModelOnly" class="text-text_danger"></div>
+</form>
+
+<script>
+
+</script>
