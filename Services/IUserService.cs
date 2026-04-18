@@ -1,5 +1,5 @@
-﻿using ComputerService.Areas.Admin.ViewModels;
-using ComputerService.Models;
+﻿using ComputerService.Models;
+using ComputerService.ViewModels;
 
 namespace ComputerService.Services
 {

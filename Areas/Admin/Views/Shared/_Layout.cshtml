@@ -47,7 +47,7 @@
                 <li><a asp-action="History" asp-controller="Pages" asp-area="Admin">@Localizer["History"]</a></li>
                 <li><a asp-action="Contacts" asp-controller="Pages" asp-area="Admin">@Localizer["Contacts"]</a></li>
                 <li>
-                    <form method="post" asp-action="SetLanguage" asp-controller="Home" asp-area="" asp-route-returnUrl="@Context.Request.Path" class="lang_form">
+                    <form method="post" asp-action="SetLanguage" asp-controller="Language" asp-area="" asp-route-returnUrl="@Context.Request.Path" class="lang_form">
                         <select name="culture" onchange="this.form.submit();"
                                 asp-for="@requestCulture.RequestCulture.UICulture.Name"
                                 asp-items="cultureItems">

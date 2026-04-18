@@ -1,6 +1,6 @@
-﻿using ComputerService.Areas.Admin.ViewModels;
-using ComputerService.Data.Repositories;
+﻿using ComputerService.Data.Repositories;
 using ComputerService.Models;
+using ComputerService.ViewModels;
 
 namespace ComputerService.Services
 {

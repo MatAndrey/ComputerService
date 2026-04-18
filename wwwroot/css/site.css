@@ -484,3 +484,29 @@ h3.add_product {
 form.privilege_list {
     max-width: 500px;
 }
+
+.main_page {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+}
+    .main_page .products_list {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+
+.categories_side_bar {
+    min-width: 200px;
+}
+
+    .categories_side_bar h3 {
+        margin-top: 0;
+    }
+
+    .categories_side_bar ul {
+        padding: 0;
+    }
+
+        .categories_side_bar ul li {
+            list-style: none;
+            margin: 4px 0;
+        }

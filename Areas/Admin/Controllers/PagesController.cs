@@ -1,4 +1,4 @@
-﻿using ComputerService.Areas.Admin.ViewModels;
+﻿using ComputerService.ViewModels;
 using ComputerService.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

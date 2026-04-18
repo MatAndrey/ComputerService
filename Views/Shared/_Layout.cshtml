@@ -43,7 +43,7 @@
                 <li><a asp-action="Feedback" asp-controller="Home">@Localizer["Feedback"]</a></li>
                 <li><a asp-action="Sitemap" asp-controller="Home">@Localizer["Sitemap"]</a></li>
                 <li>
-                    <form method="post" asp-action="SetLanguage" asp-controller="Home" asp-route-returnUrl="@Context.Request.Path" class="lang_form">
+                    <form method="post" asp-action="SetLanguage" asp-controller="Language" asp-route-returnUrl="@Context.Request.Path" class="lang_form">
                         <select name="culture" onchange="this.form.submit();"
                                 asp-for="@requestCulture.RequestCulture.UICulture.Name"
                                 asp-items="cultureItems">
