@@ -1,0 +1,72 @@
+﻿@using ComputerService.ViewModels
+@model ReviewViewModel
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = Localizer["Leave a review"];
+}
+
+<h2>@Localizer["Leave a review"]</h2>
+
+<form asp-action="Review" asp-controller="Feedback" method="post">
+    <div class="form_group">
+        <label>@Localizer["Rating"]</label>
+        <div class="rating_stars">
+            @for (int i = 1; i <= 5; i++)
+            {
+                <span class="star" data-value="@i"></span>
+            }
+        </div>
+        <input type="hidden" asp-for="Rating" id="rating_value" />
+        <span asp-validation-for="Rating" class="text_danger"></span>
+    </div>
+
+    <div class="form_group">
+        <label asp-for="AuthorName">@Localizer["Your name"]</label>
+        <input asp-for="AuthorName" autocomplete="off" placeholder="@Localizer["Default name"]"/>
+        <span asp-validation-for="AuthorName" class="text_danger"></span>
+    </div>
+
+    <div class="form_group">
+        <label asp-for="Text">@Localizer["Review text"]</label>
+        <textarea asp-for="Text" rows="5" placeholder="@Localizer["Share your impressions"]"></textarea>
+        <span asp-validation-for="Text" class="text_danger"></span>
+    </div>
+
+    <button type="submit" class="btn">@Localizer["Submit review"]</button>
+    <div asp-validation-summary="ModelOnly" class="text_danger"></div>
+</form>
+
+<script>
+    $(function () {
+        const $stars = $('.star');
+        const $ratingInput = $('#rating_value');
+        const filledStarSvg = '<svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="#fff"><path d="M233-120l93-304L80-600h304l96-320 96 320h304L634-424l93 304-247-188-247 188Z"/></svg>';
+        const emptyStarSvg = '<svg xmlns="http://www.w3.org/2000/svg" height="32px" viewBox="0 -960 960 960" width="32px" fill="none" stroke="#fff" stroke-width="40"><path d="M233-120l93-304L80-600h304l96-320 96 320h304L634-424l93 304-247-188-247 188Z"/></svg>';
+
+        function setRating(value) {
+            $ratingInput.val(value);
+            $stars.each(function (index) {
+                const starValue = $(this).data('value');
+                if (starValue <= value) {
+                    $(this).html(filledStarSvg);
+                } else {
+                    $(this).html(emptyStarSvg);
+                }
+            });
+        }
+
+        $stars.on('click', function () {
+            const value = $(this).data('value');
+            setRating(value);
+        });
+
+        const initialRating = parseInt($ratingInput.val()) || 0;
+        if (initialRating > 0) {
+            setRating(initialRating);
+        } else {
+            $stars.each(function () {
+                $(this).html(emptyStarSvg);
+            });
+        }
+    });
+</script>

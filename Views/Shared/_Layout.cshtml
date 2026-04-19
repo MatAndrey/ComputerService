@@ -40,7 +40,7 @@
             <ul>
                 <li><a asp-action="About" asp-controller="Home">@Localizer["About"]</a></li>
                 <li><a asp-action="News" asp-controller="Home">@Localizer["News"]</a></li>
-                <li><a asp-action="Feedback" asp-controller="Home">@Localizer["Feedback"]</a></li>
+                <li><a asp-action="Index" asp-controller="Feedback">@Localizer["Feedback"]</a></li>
                 <li><a asp-action="Sitemap" asp-controller="Home">@Localizer["Sitemap"]</a></li>
                 <li>
                     <form method="post" asp-action="SetLanguage" asp-controller="Language" asp-route-returnUrl="@Context.Request.Path" class="lang_form">
