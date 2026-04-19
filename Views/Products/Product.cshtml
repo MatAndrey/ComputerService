@@ -1,0 +1,138 @@
+﻿@using ComputerService.ViewModels
+@model ProductViewModel
+@inject IViewLocalizer Localizer
+@{
+	ViewData["Title"] = Model.Name;
+}
+
+<div class="product_page">
+	<div class="product_imgs">
+		<div class="active_img"></div>
+        <div class="img_list_wrap">
+            <button id="scrollLeftBtn" class="scroll_btn">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M560-240 320-480l240-240 56 56-184 184 184 184-56 56Z" /></svg>
+            </button>
+            <div class="img_list"></div>
+            <button id="scrollRightBtn" class="scroll_btn">
+                <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e3e3e3"><path d="M504-480 320-664l56-56 240 240-240 240-56-56 184-184Z" /></svg>
+            </button>
+        </div>
+	</div>
+	<div>
+		<h3>@Model.Name</h3>
+		<a class="product_category" asp-action="Category" asp-controller="Products" asp-route-categoryId="@Model.CategoryId">#@Model.CategoryName</a>
+		<div class="product_desription">@Model.Description</div>
+		<button class="btn" id="add_to_cart_btn">@(Model.Price.ToString("N0")) ₽ - @Localizer["Add to cart"]</button>
+	</div>
+</div>
+
+<script>
+    $(() => {
+        const urls = @Html.Raw(Json.Serialize(Model.ImageUrls ?? new List<string>())) || ["https://placehold.co/600x600/FFF/000?text=No+image"];
+        const $activeImgContainer = $('.active_img');
+        const $imgList = $('.img_list');
+        const $scrollLeft = $('#scrollLeftBtn');
+        const $scrollRight = $('#scrollRightBtn');
+
+        function setActiveImage(url) {
+            $activeImgContainer.empty();
+            const $img = $('<img>', {
+                src: url,
+                alt: 'Product image'
+            });
+            $activeImgContainer.append($img);
+        }
+
+        urls.forEach((url, index) => {
+            const $thumb = $('<img>', {
+                src: url,
+                alt: 'Thumbnail',
+                'data-url': url
+            });
+            $imgList.append($thumb);
+        });
+
+        setActiveImage(urls[0]);
+
+        $imgList.on('mouseenter', 'img', function () {
+            const newUrl = $(this).data('url');
+            setActiveImage(newUrl);
+        });
+
+        $scrollLeft.on('click', function () {
+            $imgList.animate({ scrollLeft: '-=100' }, 200);
+        });
+
+        $scrollRight.on('click', function () {
+            $imgList.animate({ scrollLeft: '+=100' }, 200);
+        });
+
+        function checkScrollButtons() {
+            const scrollLeftPos = $imgList.scrollLeft();
+            const maxScrollLeft = $imgList[0].scrollWidth - $imgList[0].clientWidth;
+            $scrollLeft.prop('disabled', scrollLeftPos <= 0);
+            $scrollRight.prop('disabled', scrollLeftPos >= maxScrollLeft);
+        }
+
+        $imgList.on('scroll', checkScrollButtons);
+        checkScrollButtons();
+
+
+
+        const productId = @Model.Id;
+        const $cartBtn = $("#add_to_cart_btn");
+
+        function fetchCurrentQuantity() {
+            return $.get(`/cart/${productId}`);
+        }
+
+        function updateQuantityUI(qty) {
+            if (qty == 0) {
+                $cartBtn.html(`@(Model.Price.ToString("N0")) ₽ - @Localizer["Add to cart"]`);
+            } else {
+                $cartBtn.html(`
+                    @(Model.Price.ToString("N0")) ₽ - @Localizer["In cart"]
+                    <span class="qty_control">
+                        <button class="qty_btn" id="qty_dec">-</button>
+                        <span class="qty_value">${qty}</span>
+                        <button class="qty_btn" id="qty_inc">+</button>
+                    </span>
+                `);
+
+                $cartBtn.find("#qty_dec").on("click", (e) => {
+                    e.stopPropagation();
+                    changeQuantity(-1);
+                });
+                $cartBtn.find("#qty_inc").on("click", (e) => {
+                    e.stopPropagation();
+                    changeQuantity(+1);
+                });
+            }
+        }
+
+        function changeQuantity(delta) {
+            const $qtyValue = $cartBtn.find('.qty_value');
+            const current = $qtyValue.length ? parseInt($qtyValue.text()) : 0;
+            const newQuantity = current + delta;
+            if (newQuantity < 0) return;
+
+            $.post(`/cart/${productId}`, { quantity: newQuantity })
+                .then((resp) => {
+                    updateQuantityUI(resp);
+                });
+        }
+
+        $cartBtn.on("click", () => {
+            const $qtyControl = $cartBtn.find('.qty_control');
+            if ($qtyControl.length) {
+                window.location = "/cart";
+            } else {
+                changeQuantity(+1);
+            }
+        });
+
+        fetchCurrentQuantity().then(qty => {
+            if (qty > 0) updateQuantityUI(qty);
+        });
+    })
+</script>

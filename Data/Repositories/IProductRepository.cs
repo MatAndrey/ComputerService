@@ -8,5 +8,6 @@ namespace ComputerService.Data.Repositories
         Task<Product?> GetProductByIdAsync(int id);
         IQueryable<Product> GetAllProducts();
         Task UpdateProductAsync(Product product);
+        Task<IEnumerable<Product>> GetProductsByIdsAsync(IEnumerable<int> products);
     }
 }

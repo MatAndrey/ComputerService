@@ -66,7 +66,7 @@ namespace ComputerService.Services
                     CategoryId = x.Product.CategoryId,
                     CategoryName = x.CategoryTranslation != null ? x.CategoryTranslation.Name : "N/A",
                     LangCode = x.Translation != null ? x.Translation.LangCode : "N/A",
-                    ImageUrls = x.Product.Images.Select(i => i.ImageUrl),
+                    ImageUrls = x.Product.Images.OrderBy(i => i.Id).Select(i => i.ImageUrl),
                     Visible = x.Product.Visible
                 })
                 .ToListAsync();
@@ -90,7 +90,7 @@ namespace ComputerService.Services
                 CategoryName = product.Category?.Translations?.FirstOrDefault(t => t.LangCode == langCode)?.Name ?? "N/A",
                 Id = product.Id,
                 LangCode = translation?.LangCode ?? "N/A",
-                ImageUrls = product.Images.Select(i => i.ImageUrl),
+                ImageUrls = product.Images.OrderBy(i => i.Id).Select(i => i.ImageUrl),
                 Visible = product.Visible
             };
         }
@@ -120,7 +120,7 @@ namespace ComputerService.Services
                     CategoryId = x.Product.CategoryId,
                     CategoryName = x.CategoryTranslation != null ? x.CategoryTranslation.Name : "N/A",
                     LangCode = x.Translation != null ? x.Translation.LangCode : "N/A",
-                    ImageUrls = x.Product.Images.Select(i => i.ImageUrl),
+                    ImageUrls = x.Product.Images.OrderBy(i => i.Id).Select(i => i.ImageUrl),
                     Visible = x.Product.Visible
                 })
                 .ToListAsync();

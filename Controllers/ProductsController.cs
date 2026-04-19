@@ -28,5 +28,13 @@ namespace ComputerService.Controllers
             ViewData["CategoryName"] = category.Name;
             return View(products);
         }
+
+        [HttpGet("/products/{id}")]
+        public async Task<IActionResult> Product(int id)
+        {
+            var culture = CultureInfo.CurrentUICulture.Name;
+            var product = await productService.GetProductByIdAsync(id, culture);
+            return View(product);
+        }
     }
 }

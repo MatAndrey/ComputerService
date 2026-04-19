@@ -17,7 +17,7 @@
 		<a class="product_item" asp-action="Product" asp-controller="Products" asp-area="Admin" asp-route-id="@product.Id">
 
 			<div class="product_image">
-				<img src="@(product.ImageUrls.FirstOrDefault())" alt="@product.Name" />
+				<img src="@(product.ImageUrls.FirstOrDefault("https://placehold.co/600x600/FFF/000?text=No+image"))" alt="@product.Name" />
 			</div>
 			<div class="product_info">
 				<span class="price">@(product.Price.ToString("N0")) ₽</span>

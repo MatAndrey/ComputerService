@@ -29,6 +29,16 @@ namespace ComputerService.Data.Repositories
             return product;
         }
 
+        public async Task<IEnumerable<Product>> GetProductsByIdsAsync(IEnumerable<int> ids)
+        {
+            var products = await dbContext.Products
+                .Include(p => p.Images)
+                .Include(p => p.Translations)
+                .Where(p => ids.Contains(p.Id))
+                .ToListAsync();
+            return products;
+        }
+
         public async Task UpdateProductAsync(Product product)
         {
             dbContext.Products.Update(product);

@@ -1,3 +1,4 @@
+using Community.Microsoft.Extensions.Caching.PostgreSql;
 using ComputerService.Data;
 using ComputerService.Data.Repositories;
 using ComputerService.Services;
@@ -21,13 +22,22 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     options.RequestCultureProviders.Insert(0, new CookieRequestCultureProvider());
 });
 
-//builder.Services.AddDistributedMemoryCache();
-//builder.Services.AddSession(options =>
-//{
-//    options.IdleTimeout = TimeSpan.FromHours(48);
-//    options.Cookie.HttpOnly = true;
-//    options.Cookie.IsEssential = true;
-//});
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddDistributedPostgreSqlCache(setup =>
+{
+    setup.ConnectionString = builder.Configuration.GetConnectionString("ConnectionString");
+    
+    setup.SchemaName = builder.Configuration.GetValue<string>("PostgresCache:SchemaName", "public");
+    setup.TableName = builder.Configuration.GetValue<string>("PostgresCache:TableName", "cache");
+    setup.DisableRemoveExpired = builder.Configuration.GetValue<bool>("PostgresCache:DisableRemoveExpired", false);
+    setup.CreateInfrastructure = true;
+});
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromHours(48);
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
@@ -55,6 +65,7 @@ builder.Services.AddScoped<IPageService, PageService>();
 builder.Services.AddScoped<INewsService, NewsService>();
 builder.Services.AddScoped<ISupportService, SupportService>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
+builder.Services.AddScoped<ICartService, CartService>();
 
 
 builder.Services.AddDbContext<AppDbContext>(options =>
@@ -70,6 +81,8 @@ app.UseStaticFiles();
 app.UseRouting();
 
 app.UseRequestLocalization();
+
+app.UseSession();
 
 app.UseAuthentication();
 app.UseAuthorization();
