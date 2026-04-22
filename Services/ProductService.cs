@@ -128,6 +128,69 @@ namespace ComputerService.Services
             return products;
         }
 
+        public async Task<IEnumerable<ProductViewModel>> SearchProductsAsync(string searchTerm, string langCode, bool showInvisible)
+        {
+            if (string.IsNullOrWhiteSpace(searchTerm))
+                return [];
+
+            var query = productRepository.GetAllProducts();
+
+            var products = await query
+                .Include(p => p.Translations)
+                .Include(p => p.Images)
+                .Include(p => p.Category)
+                    .ThenInclude(c => c.Translations)
+                .Where(p => showInvisible || p.Visible)
+                .Where(p => p.Translations.Any(t=>
+                    EF.Functions.ILike(t.Name, $"%{searchTerm}%") ||
+                    EF.Functions.ILike(t.Description, $"%{searchTerm}%")))
+                .Select(p => new {
+                    Translation = p.Translations.FirstOrDefault(t => t.LangCode == langCode) ?? p.Translations.FirstOrDefault(),
+                    Product = p,
+                    CategoryTranslation = p.Category.Translations.FirstOrDefault(t => t.LangCode == langCode) ?? p.Category.Translations.FirstOrDefault()
+                })
+                .Select(x => new ProductViewModel
+                {
+                    Id = x.Product.Id,
+                    Name = x.Translation != null ? x.Translation.Name : "N/A",
+                    Description = x.Translation != null ? x.Translation.Description : "N/A",
+                    Price = x.Product.Price,
+                    CategoryId = x.Product.CategoryId,
+                    CategoryName = x.CategoryTranslation != null ? x.CategoryTranslation.Name : "N/A",
+                    LangCode = x.Translation != null ? x.Translation.LangCode : "N/A",
+                    ImageUrls = x.Product.Images.OrderBy(i => i.Id).Select(i => i.ImageUrl),
+                    Visible = x.Product.Visible
+                })
+                .ToListAsync();
+
+            return products;
+        }
+
+        public async Task<List<ProductSearchSuggestion>> SearchProductsBriefAsync(string searchTerm, string langCode, bool showInvisible)
+        {
+            var query = productRepository.GetAllProducts();
+            var products = await query
+                .Where(p => showInvisible || p.Visible)
+                .Where(p => p.Translations.Any(t => 
+                    EF.Functions.ILike(t.Name, $"%{searchTerm}%") ||
+                     EF.Functions.ILike(t.Description, $"%{searchTerm}%")))
+                .Select(p => new {
+                    Translation = p.Translations.FirstOrDefault(t => t.LangCode == langCode) ?? p.Translations.FirstOrDefault(),
+                    Image = p.Images.FirstOrDefault(),
+                    Product = p
+                })
+                .Select(x => new ProductSearchSuggestion
+                {
+                    Id = x.Product.Id,
+                    Name = x.Translation != null ? x.Translation.Name : "N/A",
+                    Price = x.Product.Price,
+                    ImageUrl = x.Image != null ? x.Image.ImageUrl : ""
+                })
+                .Take(10)
+                .ToListAsync();
+            return products;
+        }
+
         public async Task UpdateProductAsync(int id, ProductViewModel product, List<IFormFile> images)
         {
             var existingProduct = await productRepository.GetProductByIdAsync(id);

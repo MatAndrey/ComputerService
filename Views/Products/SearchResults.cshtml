@@ -3,10 +3,10 @@
 @model IEnumerable<ProductViewModel>
 @inject IViewLocalizer Localizer
 @{
-	ViewData["Title"] = ViewData["CategoryName"];
+	ViewData["Title"] = ViewData["SearchTerm"];
 }
 
-<h2>@ViewData["CategoryName"]</h2>
+<h2>@ViewData["SearchTerm"] - @Localizer["Search results"]</h2>
 
 
 @if (Model.Any())
@@ -28,6 +28,6 @@
 </div>
 } else
 {
-	<p>@Localizer["There are no products yet"]</p>
+	<p>@Localizer["Nothing found"]</p>
 	<a asp-action="Index" asp-controller="Products">@Localizer["Return to home page"]</a>
 }

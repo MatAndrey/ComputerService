@@ -1,4 +1,5 @@
-﻿using ComputerService.Services;
+﻿using ComputerService.Models;
+using ComputerService.Services;
 using ComputerService.ViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -88,6 +89,31 @@ namespace ComputerService.Areas.Admin.Controllers
             {
                 return BadRequest(ex.Message);
             }
+        }
+
+        [HttpGet("/admin/search")]
+        [Authorize(Roles = "admin,product.view")]
+        public async Task<IActionResult> SearchResults(string q)
+        {
+            if (string.IsNullOrWhiteSpace(q))
+                return RedirectToAction(nameof(Index));
+
+            var langCode = CultureInfo.CurrentUICulture.Name;
+            var products = await productService.SearchProductsAsync(q, langCode, true);
+            ViewData["SearchTerm"] = q;
+            return View(products);
+        }
+
+        [HttpGet("/admin/search/live")]
+        [Authorize(Roles = "admin,product.view")]
+        public async Task<IActionResult> LiveSearch(string q)
+        {
+            if (string.IsNullOrWhiteSpace(q) || q.Length < 2)
+                return Ok(new List<ProductSearchSuggestion>());
+
+            var langCode = CultureInfo.CurrentUICulture.Name;
+            var products = await productService.SearchProductsBriefAsync(q, langCode, true);
+            return Ok(products);
         }
     }
 }

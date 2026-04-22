@@ -1,4 +1,5 @@
-﻿using ComputerService.Services;
+﻿using ComputerService.Models;
+using ComputerService.Services;
 using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
 
@@ -35,6 +36,29 @@ namespace ComputerService.Controllers
             var culture = CultureInfo.CurrentUICulture.Name;
             var product = await productService.GetProductByIdAsync(id, culture);
             return View(product);
+        }
+
+        [HttpGet("/search")]
+        public async Task<IActionResult> SearchResults(string q)
+        {
+            if (string.IsNullOrWhiteSpace(q))
+                return RedirectToAction(nameof(Index));
+
+            var langCode = CultureInfo.CurrentUICulture.Name;
+            var products = await productService.SearchProductsAsync(q, langCode, false);
+            ViewData["SearchTerm"] = q;
+            return View(products);
+        }
+
+        [HttpGet("search/live")]
+        public async Task<IActionResult> LiveSearch(string q)
+        {
+            if (string.IsNullOrWhiteSpace(q) || q.Length < 2)
+                return Ok(new List<ProductSearchSuggestion>());
+
+            var langCode = CultureInfo.CurrentUICulture.Name;
+            var products = await productService.SearchProductsBriefAsync(q, langCode, false);
+            return Ok(products);
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using ComputerService.ViewModels;
+﻿using ComputerService.Models;
+using ComputerService.ViewModels;
 
 namespace ComputerService.Services
 {
@@ -7,6 +8,8 @@ namespace ComputerService.Services
         Task<IEnumerable<ProductViewModel>> GetAllProductsAsync(string langCode, bool showInvisible);
         Task<IEnumerable<ProductViewModel>> GetProductsByCategoryAsync(int categoryId, string langCode, bool showInvisible);
         Task<ProductViewModel?> GetProductByIdAsync(int id, string langCode);
+        Task<List<ProductSearchSuggestion>> SearchProductsBriefAsync(string searchTerm, string langCode, bool showInvisible);
+        Task<IEnumerable<ProductViewModel>> SearchProductsAsync(string searchTerm, string langCode, bool showInvisible);
         Task<int> AddProductAsync(ProductViewModel product, List<IFormFile> images);
         Task UpdateProductAsync(int id, ProductViewModel product, List<IFormFile> images);
     }
