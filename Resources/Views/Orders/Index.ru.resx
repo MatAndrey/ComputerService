@@ -117,22 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Cart" xml:space="preserve">
-    <value>Корзина</value>
-  </data>
-  <data name="Cart is empty now" xml:space="preserve">
-    <value>Корзина пока пуста</value>
-  </data>
   <data name="Go to products" xml:space="preserve">
     <value>Перейти к товарам</value>
   </data>
   <data name="Order" xml:space="preserve">
-    <value>Заказать</value>
+    <value>Заказ</value>
   </data>
-  <data name="Products" xml:space="preserve">
-    <value>Товары</value>
+  <data name="pcs." xml:space="preserve">
+    <value>шт.</value>
   </data>
-  <data name="Total" xml:space="preserve">
-    <value>Итого</value>
+  <data name="Items" xml:space="preserve">
+    <value>Товаров</value>
+  </data>
+  <data name="There are no orders yet" xml:space="preserve">
+    <value>Заказов пока нет</value>
+  </data>
+  <data name="Your orders" xml:space="preserve">
+    <value>Ваши заказы</value>
   </data>
 </root>

@@ -57,6 +57,7 @@ builder.Services.AddScoped<IPageRepository, PageRepository>();
 builder.Services.AddScoped<INewsRepository, NewsRepository>();
 builder.Services.AddScoped<ISupportRepository, SupportRepository>();
 builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
@@ -66,6 +67,7 @@ builder.Services.AddScoped<INewsService, NewsService>();
 builder.Services.AddScoped<ISupportService, SupportService>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddScoped<ICartService, CartService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 
 builder.Services.AddDbContext<AppDbContext>(options =>

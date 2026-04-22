@@ -5,12 +5,11 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
-namespace ComputerService.Areas.Admin.Controllers
+namespace ComputerService.Controllers
 {
-    [Area("Admin")]
     public class AuthController(IUserService userService) : Controller
     {
-        [HttpGet("admin/login")]
+        [HttpGet("/login")]
         public IActionResult Login(string returnUrl = "/admin")
         {
             if (User.Identity.IsAuthenticated)
@@ -21,7 +20,7 @@ namespace ComputerService.Areas.Admin.Controllers
             return View();
         }
 
-        [HttpPost("admin/login")]
+        [HttpPost("/login")]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = "/")
         {
             if (ModelState.IsValid)
@@ -50,7 +49,7 @@ namespace ComputerService.Areas.Admin.Controllers
             return View(model);
         }
 
-        [HttpGet("admin/logout")]
+        [HttpGet("/logout")]
         public async Task<IActionResult> Logout()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);

@@ -1,0 +1,35 @@
+﻿@using ComputerService.ViewModels
+@model IEnumerable<OrderViewModel>
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = @Localizer["Your orders"];
+}
+
+<h2>@Localizer["Your orders"]</h2>
+
+@if(Model.Any())
+{
+    <div class="orders_list">
+        @foreach(var order in Model)
+        {
+            <div class="order">
+                <div class="order_header">
+                    <span>@order.Date.ToString("dd MMM yy")</span>
+                    <span>@order.Total.ToString("N0") ₽</span>
+                    <span>@Localizer["Order"] №@order.Id</span>
+                    <span>@Localizer["Items"]: @order.Items.Aggregate(0, (a, i) => a + i.Quantity) @Localizer["pcs."]</span>
+                </div>
+                <div class="order_imgs">
+                    @foreach(var item in order.Items)
+                    {
+                        <img src="@item.ProductImage" alt="@item.ProductName" title="@item.ProductName" />
+                    }
+                </div>
+            </div>
+        }
+    </div>
+} else
+{
+    <p>@Localizer["There are no orders yet"]</p>
+    <a asp-action="Index" asp-controller="Products">@Localizer["Go to products"]</a>
+}

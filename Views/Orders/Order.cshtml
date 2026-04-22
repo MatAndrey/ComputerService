@@ -1,0 +1,110 @@
+﻿@using ComputerService.ViewModels
+@model OrderViewModel
+@inject IViewLocalizer Localizer
+@{
+    ViewData["Title"] = @Localizer["Place an order"];
+}
+
+<h2>@Localizer["Place an order"]</h2>
+
+@if(Model.Total != 0m)
+{
+    <form method="post" asp-action="Order" asp-controller="Orders">
+        <div class="form_group">
+            <label asp-for="Total">@Localizer["Total"]</label>
+            <input asp-for="Total" autocomplete="off" disabled />
+        </div>
+        <div class="form_group">
+            <label asp-for="CustomerName">@Localizer["Your name"]</label>
+            <input asp-for="CustomerName" autocomplete="off" />
+            <span asp-validation-for="CustomerName" class="text_danger"></span>
+        </div>
+        <div class="form_group">
+            <label asp-for="Phone">@Localizer["Phone number"]</label>
+            <input asp-for="Phone" autocomplete="off" />
+            <span asp-validation-for="Phone" class="text_danger"></span>
+        </div>
+        <div class="form_group">
+            <label asp-for="Email">@Localizer["Email"]</label>
+            <input asp-for="Email" autocomplete="off" />
+            <span asp-validation-for="Email" class="text_danger"></span>
+        </div>
+        <div class="form_group">
+            <label asp-for="PaymentMethod">@Localizer["Payment Method"]</label>
+            <select asp-for="PaymentMethod">
+                <option value="SBP">@Localizer["SBP"]</option>
+                <option value="Credit card">@Localizer["Credit card"]</option>
+                <option value="Cryptocurrency">@Localizer["Cryptocurrency"]</option>
+            </select>
+            <span asp-validation-for="PaymentMethod" class="text_danger"></span>
+        </div>
+        <div class="form_group">
+            <label asp-for="DeliveryMethod">@Localizer["Delivery Method"]</label>
+            <select asp-for="DeliveryMethod">
+                <option value="Mail">@Localizer["Mail"]</option>
+                <option value="CDEK">@Localizer["CDEK"]</option>
+                <option value="Pickup">@Localizer["Pickup"]</option>
+            </select>
+            <span asp-validation-for="DeliveryMethod" class="text_danger"></span>
+        </div>
+        <div class="form_group">
+            <label asp-for="DeliveryAddress">@Localizer["Delivery Address"]</label>
+            <input asp-for="DeliveryAddress" autocomplete="off" />
+            <span asp-validation-for="DeliveryAddress" class="text_danger"></span>
+        </div>
+        <div class="btn_group">
+            <button class="btn" type="button" id="cancel_btn">@Localizer["Cancel"]</button>
+            <button class="btn">@Localizer["Order"]</button>
+        </div>
+    </form>
+} else
+{
+    <div>@Localizer["Add products to cart to make order"]</div>
+}
+
+
+<script>
+    $(function () {
+        const STORAGE_KEY = 'orderFormData';
+
+        const fieldsToSave = ['CustomerName', 'Phone', 'Email', 'PaymentMethod', 'DeliveryMethod', 'DeliveryAddress'];
+
+        function saveFormData() {
+            const formData = {};
+            fieldsToSave.forEach(field => {
+                const $field = $(`[name="${field}"]`);
+                if ($field.length) {
+                    formData[field] = $field.val();
+                }
+            });
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
+        }
+
+        function loadFormData() {
+            const saved = localStorage.getItem(STORAGE_KEY);
+            if (!saved) return;
+            try {
+                const formData = JSON.parse(saved);
+                fieldsToSave.forEach(field => {
+                    const $field = $(`[name="${field}"]`);
+                    if ($field.length && $field.val() === '') {
+                        if (formData[field] !== undefined && formData[field] !== null) {
+                            $field.val(formData[field]);
+                        }
+                    }
+                });
+            } catch (e) {
+                console.error('Ошибка парсинга localStorage', e);
+            }
+        }
+        loadFormData();
+
+        $('form').on('submit', function () {
+            saveFormData();
+        });
+
+        $("#cancel_btn").on("click", () => {
+            window.history.back();
+        })
+    });
+</script>

@@ -117,22 +117,37 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Cart" xml:space="preserve">
-    <value>Корзина</value>
+  <data name="Address" xml:space="preserve">
+    <value>Адрес</value>
   </data>
-  <data name="Cart is empty now" xml:space="preserve">
-    <value>Корзина пока пуста</value>
+  <data name="Customer" xml:space="preserve">
+    <value>Покупатель</value>
   </data>
-  <data name="Go to products" xml:space="preserve">
-    <value>Перейти к товарам</value>
+  <data name="Date" xml:space="preserve">
+    <value>Дата</value>
   </data>
-  <data name="Order" xml:space="preserve">
-    <value>Заказать</value>
+  <data name="Delivery method" xml:space="preserve">
+    <value>Способ доставки</value>
   </data>
-  <data name="Products" xml:space="preserve">
-    <value>Товары</value>
+  <data name="Email" xml:space="preserve">
+    <value>Эл. почта</value>
+  </data>
+  <data name="ID" xml:space="preserve">
+    <value>ID</value>
+  </data>
+  <data name="No orders yet" xml:space="preserve">
+    <value>Заказов пока нет</value>
+  </data>
+  <data name="Orders management" xml:space="preserve">
+    <value>Управление заказами</value>
+  </data>
+  <data name="Payment" xml:space="preserve">
+    <value>Способ оплаты</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Телефон</value>
   </data>
   <data name="Total" xml:space="preserve">
-    <value>Итого</value>
+    <value>Сумма</value>
   </data>
 </root>

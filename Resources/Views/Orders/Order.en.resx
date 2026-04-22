@@ -117,22 +117,55 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Cart" xml:space="preserve">
-    <value>Корзина</value>
+  <data name="Cancel" xml:space="preserve">
+    <value>Cancel</value>
   </data>
-  <data name="Cart is empty now" xml:space="preserve">
-    <value>Корзина пока пуста</value>
+  <data name="CDEK" xml:space="preserve">
+    <value>CDEK</value>
   </data>
-  <data name="Go to products" xml:space="preserve">
-    <value>Перейти к товарам</value>
+  <data name="Credit card" xml:space="preserve">
+    <value>Credit card</value>
+  </data>
+  <data name="Cryptocurrency" xml:space="preserve">
+    <value>Cryptocurrency</value>
+  </data>
+  <data name="Delivery Method" xml:space="preserve">
+    <value>Delivery Method</value>
+  </data>
+  <data name="Delivery Address" xml:space="preserve">
+    <value>Delivery Address</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Email</value>
+  </data>
+  <data name="Mail" xml:space="preserve">
+    <value>Mail</value>
   </data>
   <data name="Order" xml:space="preserve">
-    <value>Заказать</value>
+    <value>Order</value>
   </data>
-  <data name="Products" xml:space="preserve">
-    <value>Товары</value>
+  <data name="Payment Method" xml:space="preserve">
+    <value>Payment Method</value>
+  </data>
+  <data name="Phone number" xml:space="preserve">
+    <value>Phone number</value>
+  </data>
+  <data name="Pickup" xml:space="preserve">
+    <value>Pickup</value>
+  </data>
+  <data name="Place an order" xml:space="preserve">
+    <value>Place an order</value>
+  </data>
+  <data name="SBP" xml:space="preserve">
+    <value>SBP</value>
   </data>
   <data name="Total" xml:space="preserve">
-    <value>Итого</value>
+    <value>Total</value>
+  </data>
+  <data name="Your name" xml:space="preserve">
+    <value>Your name</value>
+  </data>
+  <data name="Add products to cart to make order" xml:space="preserve">
+    <value>Add products to cart to make order</value>
   </data>
 </root>

@@ -7,21 +7,30 @@
 
 <h2>@Localizer["Cart"]</h2>
 
-<div class="cart_items">
+<div class="cart_page">
 	@if(Model.Any())
 	@foreach(var item in Model)
 	{
-		<div class="cart_item">
-			<div class="cart_item_img">
-				<img src="@item.ImageUrl" alt="Item image" />
+		<div class="cart_items">
+			<div class="cart_item">
+				<div class="cart_item_img">
+					<img src="@item.ImageUrl" alt="Item image" />
+				</div>
+				<div>
+					<h3><a asp-action="Product" asp-controller="Products" asp-route-id="@item.ProductId">@item.Name</a></h3>
+					<p>@item.Price.ToString("N0") ₽ @(item.Quantity == 0 ? "" : $"× {item.Quantity} = {(item.Quantity * item.Price).ToString("N0")} ₽")</p>
+				</div>
 			</div>
-			<div>
-				<h3><a asp-action="Product" asp-controller="Products" asp-route-id="@item.ProductId">@item.Name</a></h3>
-				<p>@item.Price.ToString("N0") ₽ @(item.Quantity == 0 ? "" : $"× {item.Quantity} = {(item.Quantity * item.Price).ToString("N0")} ₽")</p>
+		</div>
+		<div class="order_cart">
+			<h4>@Localizer["Total"]</h4>
+			<div class="order_items">
+				<span>@Localizer["Products"] (@Model.Aggregate(0m, (acc, item) => acc + item.Quantity))</span>
+				<span>@Model.Aggregate(0m, (acc, item) => acc + item.Quantity * item.Price).ToString("N0") ₽</span>
 			</div>
-			</div>
-		}
-
+			<a asp-action="Order" asp-controller="Orders" class="btn">@Localizer["Order"]</a>
+		</div>
+	}
 	else
 	{
 		<p>@Localizer["Cart is empty now"] <a asp-action="Index" asp-controller="Products">@Localizer["Go to products"]</a></p>

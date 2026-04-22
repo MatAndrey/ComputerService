@@ -117,22 +117,55 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Cart" xml:space="preserve">
-    <value>Корзина</value>
+  <data name="Cancel" xml:space="preserve">
+    <value>Отмена</value>
   </data>
-  <data name="Cart is empty now" xml:space="preserve">
-    <value>Корзина пока пуста</value>
+  <data name="CDEK" xml:space="preserve">
+    <value>CDEK</value>
   </data>
-  <data name="Go to products" xml:space="preserve">
-    <value>Перейти к товарам</value>
+  <data name="Credit card" xml:space="preserve">
+    <value>Картой</value>
+  </data>
+  <data name="Cryptocurrency" xml:space="preserve">
+    <value>Криптовалюта</value>
+  </data>
+  <data name="Delivery Method" xml:space="preserve">
+    <value>Способ доставки</value>
+  </data>
+  <data name="Delivery Address" xml:space="preserve">
+    <value>Адрес доставки</value>
+  </data>
+  <data name="Email" xml:space="preserve">
+    <value>Эл. почта</value>
+  </data>
+  <data name="Mail" xml:space="preserve">
+    <value>Почта</value>
   </data>
   <data name="Order" xml:space="preserve">
     <value>Заказать</value>
   </data>
-  <data name="Products" xml:space="preserve">
-    <value>Товары</value>
+  <data name="Payment Method" xml:space="preserve">
+    <value>Способ оплаты</value>
+  </data>
+  <data name="Phone number" xml:space="preserve">
+    <value>Номер телефона</value>
+  </data>
+  <data name="Pickup" xml:space="preserve">
+    <value>Самовывоз</value>
+  </data>
+  <data name="Place an order" xml:space="preserve">
+    <value>Оформить заказ</value>
+  </data>
+  <data name="SBP" xml:space="preserve">
+    <value>СБП</value>
   </data>
   <data name="Total" xml:space="preserve">
     <value>Итого</value>
+  </data>
+  <data name="Your name" xml:space="preserve">
+    <value>Ваше имя</value>
+  </data>
+  <data name="Add products to cart to make order" xml:space="preserve">
+    <value>Добавьте товары в корзину, чтобы сделать заказ</value>
   </data>
 </root>

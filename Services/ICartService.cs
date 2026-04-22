@@ -9,5 +9,6 @@ namespace ComputerService.Services
         CartItem GetItem(int productId);
         void ClearCart();
         Task<List<CartItemViewModel>> GetCartWithDetailsAsync(string langCode);
+        Cart GetCart();
     }
 }

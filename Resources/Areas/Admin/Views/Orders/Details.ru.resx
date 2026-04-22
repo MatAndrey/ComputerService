@@ -117,22 +117,55 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Cart" xml:space="preserve">
-    <value>Корзина</value>
+  <data name="Customer name" xml:space="preserve">
+    <value>Имя покупателя</value>
   </data>
-  <data name="Cart is empty now" xml:space="preserve">
-    <value>Корзина пока пуста</value>
+  <data name="Date" xml:space="preserve">
+    <value>Дата</value>
   </data>
-  <data name="Go to products" xml:space="preserve">
-    <value>Перейти к товарам</value>
+  <data name="Delivery address" xml:space="preserve">
+    <value>Адрес доставки</value>
   </data>
-  <data name="Order" xml:space="preserve">
-    <value>Заказать</value>
+  <data name="Delivery method" xml:space="preserve">
+    <value>Способ доставки</value>
   </data>
-  <data name="Products" xml:space="preserve">
-    <value>Товары</value>
+  <data name="Email" xml:space="preserve">
+    <value>Эл. почта</value>
+  </data>
+  <data name="No items in this order" xml:space="preserve">
+    <value>В заказе нет товаров</value>
+  </data>
+  <data name="Order details" xml:space="preserve">
+    <value>Детали заказа</value>
+  </data>
+  <data name="Order ID" xml:space="preserve">
+    <value>ID заказа</value>
+  </data>
+  <data name="Order items" xml:space="preserve">
+    <value>Товары в заказе</value>
+  </data>
+  <data name="Payment method" xml:space="preserve">
+    <value>Способ оплаты</value>
+  </data>
+  <data name="pcs." xml:space="preserve">
+    <value>шт.</value>
+  </data>
+  <data name="Phone" xml:space="preserve">
+    <value>Номер телефона</value>
+  </data>
+  <data name="Price" xml:space="preserve">
+    <value>Цена</value>
+  </data>
+  <data name="Product" xml:space="preserve">
+    <value>Товар</value>
+  </data>
+  <data name="Quantity" xml:space="preserve">
+    <value>Количество</value>
   </data>
   <data name="Total" xml:space="preserve">
     <value>Итого</value>
+  </data>
+  <data name="Total amount" xml:space="preserve">
+    <value>Общее количество</value>
   </data>
 </root>

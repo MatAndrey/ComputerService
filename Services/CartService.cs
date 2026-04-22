@@ -10,12 +10,12 @@ namespace ComputerService.Services
         IProductRepository productRepository
         ) : ICartService
     {
-        private ISession Session = httpContextAccessor.HttpContext?.Session ?? throw new Exception("HttpContext not found");
+        private readonly ISession Session = httpContextAccessor.HttpContext?.Session ?? throw new Exception("HttpContext not found");
         private readonly string CartSessionKey = "Cart";
-        private Cart GetCart()
+        public Cart GetCart()
         {
             var value = Session.GetString(CartSessionKey);
-            return value == null ? new Cart() { Items = [] } : JsonSerializer.Deserialize<Cart>(value);
+            return value == null ? new Cart() { Items = [] } : JsonSerializer.Deserialize<Cart>(value) ?? new Cart() { Items = [] };
         }
 
         private void SaveCart(Cart cart)
