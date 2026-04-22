@@ -1,4 +1,5 @@
 ﻿using ComputerService.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
 
@@ -8,6 +9,7 @@ namespace ComputerService.Areas.Admin.Controllers
     public class OrdersController(IOrderService orderService) : Controller
     {
         [HttpGet("/admin/orders")]
+        [Authorize(Roles = "admin,order.view")]
         public async Task<IActionResult> Index()
         {
             var culture = CultureInfo.CurrentUICulture.Name;
@@ -16,6 +18,7 @@ namespace ComputerService.Areas.Admin.Controllers
         }
 
         [HttpGet("/admin/orders/{id}")]
+        [Authorize(Roles = "admin,order.view")]
         public async Task<IActionResult> Details(int id)
         {
             var culture = CultureInfo.CurrentUICulture.Name;

@@ -1,0 +1,57 @@
+﻿@using ComputerService.ViewModels
+@inject IViewLocalizer Localizer
+@{
+	ViewData["Title"] = @Localizer["Sitemap"];
+}
+
+<h2>@Localizer["Sitemap"]</h2>
+
+<div class="page_content">
+	<ul>
+		<li><a asp-action="Index" asp-controller="Products">@Localizer["Products"]</a></li>
+		<li><a asp-action="Index" asp-controller="Cart">@Localizer["Cart"]</a></li>
+		<li>
+			<a asp-action="Index" asp-controller="Orders">@Localizer["Orders"]</a>
+			<ul>
+				<li><a asp-action="Order" asp-controller="Orders">@Localizer["Place an order"]</a></li>
+			</ul>
+		</li>
+		<li>			
+			<a asp-action="Index" asp-controller="Feedback">@Localizer["Reviews"]</a>
+			<ul>
+				<li><a asp-action="Review" asp-controller="Feedback">@Localizer["Leave a review"]</a></li>
+			</ul>
+		</li>
+		<li><a asp-action="Index" asp-controller="Support">@Localizer["Support"]</a></li>
+		<li><a asp-action="About" asp-controller="Home">@Localizer["About"]</a></li>
+		<li><a asp-action="Contacts" asp-controller="Home">@Localizer["Contacts"]</a></li>
+		<li><a asp-action="Directions" asp-controller="Home">@Localizer["Directions"]</a></li>
+		<li><a asp-action="History" asp-controller="Home">@Localizer["History"]</a></li>
+		<li><a asp-action="News" asp-controller="Home">@Localizer["News"]</a></li>
+		<li><a asp-action="Sitemap" asp-controller="Home">@Localizer["Sitemap"]</a></li>
+		<li>
+			<a asp-action="Login" asp-controller="Auth">@Localizer["Login as admin"]</a>
+			<ul>
+				<li><a asp-action="Index" asp-controller="Categories" asp-area="Admin">@Localizer["Categories"]</a></li>
+				<li>
+					<a asp-action="Index" asp-controller="News" asp-area="Admin">@Localizer["News"]</a>
+					<ul>
+						<li><a asp-action="Create" asp-controller="News" asp-area="Admin">@Localizer["Create"]</a></li>
+					</ul>
+				</li>
+				<li><a asp-action="Index" asp-controller="Orders" asp-area="Admin">@Localizer["Orders"]</a></li>
+				<li><a asp-action="About" asp-controller="Pages" asp-area="Admin">@Localizer["About"]</a></li>
+				<li><a asp-action="Contacts" asp-controller="Pages" asp-area="Admin">@Localizer["Contacts"]</a></li>
+				<li><a asp-action="History" asp-controller="Pages" asp-area="Admin">@Localizer["History"]</a></li>
+				<li>
+					<a asp-action="Index" asp-controller="Products" asp-area="Admin">@Localizer["Products"]</a>
+					<ul>
+						<li><a asp-action="CreateProduct" asp-controller="Products" asp-area="Admin">@Localizer["Create"]</a></li>
+					</ul>
+				</li>
+				<li><a asp-action="Index" asp-controller="Support" asp-area="Admin">@Localizer["Support"]</a></li>
+				<li><a asp-action="Index" asp-controller="Users" asp-area="Admin">@Localizer["Users"]</a></li>
+			</ul>
+		</li>
+	</ul>
+</div>

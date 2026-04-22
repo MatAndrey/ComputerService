@@ -43,5 +43,11 @@ namespace ComputerService.Controllers
         {
             return View();
         }
+
+        [HttpGet("/sitemap")]
+        public IActionResult Sitemap()
+        {
+            return View();
+        }
     }
 }

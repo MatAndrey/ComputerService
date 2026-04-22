@@ -17,6 +17,7 @@
 	<partial name="_PrivilegeCheckboxList" model=@(("history", new List<string> { "edit" }, Model.Privileges.ToList())) />
 	<partial name="_PrivilegeCheckboxList" model=@(("contacts", new List<string> { "edit" }, Model.Privileges.ToList())) />
 	<partial name="_PrivilegeCheckboxList" model=@(("support", new List<string> { "view" }, Model.Privileges.ToList())) />
+	<partial name="_PrivilegeCheckboxList" model=@(("order", new List<string> { "view" }, Model.Privileges.ToList())) />
 	<fieldset>
 		<legend>@Localizer["admin"]</legend>
 		<input type="checkbox" name="privileges" value="admin" id="admin" @(Model.Privileges.Contains("admin") ? "checked" : "") />
