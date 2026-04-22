@@ -68,6 +68,7 @@ builder.Services.AddScoped<ISupportService, SupportService>();
 builder.Services.AddScoped<IReviewService, ReviewService>();
 builder.Services.AddScoped<ICartService, CartService>();
 builder.Services.AddScoped<IOrderService, OrderService>();
+builder.Services.AddScoped<IEmailService, EmailService>();
 
 
 builder.Services.AddDbContext<AppDbContext>(options =>

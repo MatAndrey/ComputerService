@@ -71,7 +71,6 @@ namespace ComputerService.Services
         {
             var dbNews = await newsRepository.GetNewsByIdAsync(model.Id);
             if (dbNews == null) throw new Exception("News not found");
-            dbNews.Date = model.Date;
             var translation = dbNews.Translations.FirstOrDefault(t => t.LangCode == model.LangCode);
             if (translation != null)
             {

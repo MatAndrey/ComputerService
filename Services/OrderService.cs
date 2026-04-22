@@ -10,7 +10,8 @@ namespace ComputerService.Services
         IOrderRepository orderRepository, 
         ICartService cartService, 
         IProductRepository productRepository,
-        IHttpContextAccessor httpContextAccessor) : IOrderService
+        IHttpContextAccessor httpContextAccessor,
+        IEmailService emailService) : IOrderService
     {
         private readonly ISession Session = httpContextAccessor.HttpContext?.Session ?? throw new Exception("HttpContext not found");
         private readonly string OrdersSessionKey = "Orders";
@@ -46,8 +47,11 @@ namespace ComputerService.Services
                 order.Total += orderItem.Price * orderItem.Quantity;
             }
             await orderRepository.AddAsync(order);
+
             AddOrderToSession(order.Id);
             cartService.ClearCart();
+
+            await NotifyAdminOfNewOrderAsync(order);
         }
 
         public async Task<IEnumerable<OrderViewModel>> GetAllOrdersAsync(string langCode)
@@ -161,6 +165,21 @@ namespace ComputerService.Services
                     Quantity = i.Quantity
                 }).ToList()
             }).FirstOrDefaultAsync();
+        }
+
+        private async Task NotifyAdminOfNewOrderAsync(Order order)
+        {
+            var subject = $"Новый заказ №{order.Id} на сумму {order.Total} руб.";
+            var body = $@"
+                <h2>Поступил новый заказ!</h2>
+                <p><strong>Заказ №{order.Id}</strong></p>
+                <p><strong>Имя:</strong> {order.CustomerName}</p>
+                <p><strong>Телефон:</strong> {order.Phone}</p>
+                <p><strong>Email:</strong> {order.Email}</p>
+                <p><strong>Сумма:</strong> {order.Total} руб.</p>
+            ";
+
+            await emailService.SendEmailToAdminAsync(subject, body);
         }
     }
 }
