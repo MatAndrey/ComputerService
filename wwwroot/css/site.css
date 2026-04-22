@@ -95,10 +95,10 @@ header {
     position: absolute;
     top: 100%;
     left: 0;
-    right: 0;
+    width: 100%;
     background: white;
     border: 1px solid #ddd;
-
+    border-radius: 4px;
     max-height: 400px;
     overflow-y: auto;
     z-index: 1000;
@@ -671,6 +671,16 @@ form.privilege_list {
         height: 80px;
         object-fit: contain;
     }
+
+.thumbnail_img {
+    transition: opacity 0.2s;
+    opacity: 0.7;
+    cursor: pointer;
+}
+
+.thumbnail_img.active_thumb {
+    opacity: 1;
+}
 
 .scroll_btn {
     border: 1px solid rgba(255,255,255,0.3);

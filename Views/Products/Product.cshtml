@@ -41,20 +41,31 @@
                 alt: 'Product image'
             });
             $activeImgContainer.append($img);
+
+            $imgList.find('.thumbnail_img').removeClass('active_thumb');
+            $imgList.find(`.thumbnail_img[data-url="${url}"]`).addClass('active_thumb');
         }
 
         urls.forEach((url, index) => {
             const $thumb = $('<img>', {
                 src: url,
                 alt: 'Thumbnail',
-                'data-url': url
+                'data-url': url,
+                class: 'thumbnail_img'
             });
             $imgList.append($thumb);
         });
 
-        setActiveImage(urls[0]);
+        let activeImageIndex = 0
+        setActiveImage(urls[activeImageIndex]);
+
+        let slideshowInterval = setInterval(() => {
+            activeImageIndex = (activeImageIndex + 1) % urls.length
+            setActiveImage(urls[activeImageIndex]);
+        }, 3000)
 
         $imgList.on('mouseenter', 'img', function () {
+            clearInterval(slideshowInterval)
             const newUrl = $(this).data('url');
             setActiveImage(newUrl);
         });
