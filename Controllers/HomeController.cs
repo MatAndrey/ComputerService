@@ -49,5 +49,11 @@ namespace ComputerService.Controllers
         {
             return View();
         }
+
+        [HttpGet("/access-denied")]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
     }
 }

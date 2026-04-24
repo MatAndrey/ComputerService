@@ -744,6 +744,7 @@ form.privilege_list {
 .cart_item {
     display: flex;
     border-bottom: 1px solid rgba(255,255,255,0.3);
+    padding: 8px 0;
 }
 
     .cart_item h3 {

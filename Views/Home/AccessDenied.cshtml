@@ -1,0 +1,10 @@
+﻿@using System.Globalization
+@using ComputerService.ViewModels
+@model PageViewModel
+@inject IViewLocalizer Localizer
+@{
+	ViewData["Title"] = @Localizer["Access denied!"];
+}
+
+<h2>@Localizer["Access denied!"]</h2>
+<p>@Localizer["Contact administrator to get access"]</p>
